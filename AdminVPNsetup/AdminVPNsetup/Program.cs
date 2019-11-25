@@ -15,6 +15,7 @@ namespace AdminVPNsetup
     {
         public static string Rt { get; private set; }
         public static string GrD { get; set; }
+        public static string CardChoise { get; set; }
 
         static void Main(string[] args)
 
@@ -26,7 +27,13 @@ namespace AdminVPNsetup
             CheckInstall._Save_LocalBridge();
             CheckInstall._Print_Local_Bridge();
             _Local_Bridge_Set();
+            Console.WriteLine("  ");
+            Console.WriteLine("Ready to setup");
+            Console.WriteLine("Enter the index number of Network Card you wish to setup as Local Bridge");
             Console.ReadKey();
+            _Enter_choise();
+
+
 
 
         }
@@ -69,6 +76,43 @@ namespace AdminVPNsetup
             Console.WriteLine(" Local Bridge");
             Console.WriteLine(LBS);
         }
+        static void _Enter_choise()
+        {
+            string _val = "";
+            Console.Write("Enter your value: ");
+            ConsoleKeyInfo key;
+
+            do
+            {
+                key = Console.ReadKey(true);
+                if (key.Key != ConsoleKey.Backspace)
+                {
+                    double val = 0;
+                    bool _x = double.TryParse(key.KeyChar.ToString(), out val);
+                    if (_x)
+                    {
+                        _val += key.KeyChar;
+                        Console.Write(key.KeyChar);
+                    }
+                }
+                else
+                {
+                    if (key.Key == ConsoleKey.Backspace && _val.Length > 0)
+                    {
+                        _val = _val.Substring(0, (_val.Length - 1));
+                        Console.Write("\b \b");
+                    }
+                }
+            }
+            // Stops Receving Keys Once Enter is Pressed
+            while (key.Key != ConsoleKey.Enter);
+
+            Console.WriteLine();
+            Console.WriteLine("The Value You entered is : " + _val);
+            CardChoise = _val;
+            Console.ReadKey();
+        }
+
     }
 }
 

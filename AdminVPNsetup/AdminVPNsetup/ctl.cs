@@ -55,14 +55,14 @@ namespace AdminVPNsetup
             
             string svstm = CheckInstall.StartupType(serviceNane);
             BridgeServiceStartMode = svstm;
-                        var svc = new ServiceController("sevpnbridge");
+            var svc = new ServiceController("sevpnbridge");
             System.ServiceProcess.ServiceHelper.ChangeStartMode(svc, ServiceStartMode.Manual);
 
             // var svc1 = new ServiceController("sevpnbridge");
-            if (svc.Status != ServiceControllerStatus.Stopped)
-            {
-                svc.Stop();
-            }
+            //if (svc.Status != ServiceControllerStatus.Stopped)
+            //{
+            //    svc.Stop();
+            //}
             svc.Close();
         }
     }
