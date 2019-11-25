@@ -4,6 +4,7 @@ using System.ServiceProcess;
 using System.Management;
 using System.Diagnostics;
 using System;
+using System.Collections.Generic;
 
 namespace AdminVPNsetup
 {
@@ -17,39 +18,39 @@ namespace AdminVPNsetup
 
         public static bool CheckIfSubDirExists(string SubDirPath)
         {
-           // static 
-           return (Directory.Exists(SubDirPath));
+            // static 
+            return (Directory.Exists(SubDirPath));
         }
 
         public static bool ServiceExists(string ServiceBridgeExists)
         {
-           
+
             string machineName = System.Environment.MachineName;
-           
+
             return (ServiceController.GetServices().Any(s => s.ServiceName == "sevpnbridge"));
-            
+
         }
 
         public static string BridgeServiceCondition(string serviceName, string rt)
         {
-            
-                string ServiceName = "sevpnbridge";
-                ServiceController sc = new ServiceController(ServiceName);
-                switch (sc.Status)
-                {
-                    case ServiceControllerStatus.Running:
-                        return "Running";
-                    case ServiceControllerStatus.Stopped:
-                        return "Stopped";
-                    case ServiceControllerStatus.Paused:
-                        return "Paused";
-                    case ServiceControllerStatus.StopPending:
-                        return "Stopping";
-                    case ServiceControllerStatus.StartPending:
-                        return "Starting";
-                    default:
-                        return "Status Changing";
-                }         
+
+            string ServiceName = "sevpnbridge";
+            ServiceController sc = new ServiceController(ServiceName);
+            switch (sc.Status)
+            {
+                case ServiceControllerStatus.Running:
+                    return "Running";
+                case ServiceControllerStatus.Stopped:
+                    return "Stopped";
+                case ServiceControllerStatus.Paused:
+                    return "Paused";
+                case ServiceControllerStatus.StopPending:
+                    return "Stopping";
+                case ServiceControllerStatus.StartPending:
+                    return "Starting";
+                default:
+                    return "Status Changing";
+            }
         }
         public static string GetStartupType(string serviceName)
         {
@@ -69,18 +70,18 @@ namespace AdminVPNsetup
         public static string StartupType(string serviceName)
         {
             if (serviceName != null)
-        {
-            string path = "Win32_Service.Name='" + serviceName + "'";
-            ManagementPath p = new ManagementPath(path);
-            ManagementObject managementObject = new ManagementObject(p);
-            return managementObject["StartMode"].ToString();
+            {
+                string path = "Win32_Service.Name='" + serviceName + "'";
+                ManagementPath p = new ManagementPath(path);
+                ManagementObject managementObject = new ManagementObject(p);
+                return managementObject["StartMode"].ToString();
+            }
+            else
+            {
+                return null;
+            }
         }
-        else
-        {
-            return null;
-        }
-        }
-        public static void  GetfLocalBridgeDeviceList()
+        public static void GetfLocalBridgeDeviceList()
         {
             ServiceController sc1 = new ServiceController();
             sc1.ServiceName = "sevpnbridge";
@@ -101,7 +102,7 @@ namespace AdminVPNsetup
             }
 
             Console.WriteLine("Check if Service Running:       " + "  " + ctl.BridgeServiceCondition);
-            Console.ReadKey();
+          //  Console.ReadKey();
             string directory = "c:\\Program Files\\VPN_Tools";
             string arg = "/c cd \"" + directory + "\" && vpncmd_x64.exe localhost:5555 /SERVER /PASSWORD:pirkon12 /CMD BridgeDeviceList > c:\\temp\\BridgeDeviceList.txt && exit";
             Process GlbDL = new Process();
@@ -111,9 +112,58 @@ namespace AdminVPNsetup
             GlbDL.Start();
             GlbDL.WaitForExit();
             GlbDL.Close();
-
+        }
+        public static  List<string> _Capable_cards()
+        {
+           List<string> found = new List<string>();
+            string line;
+            StreamReader file = new StreamReader("c:\\temp\\BridgeDeviceList.txt");
+            {
+                while ((line = file.ReadLine()) != null)
+                {
+                    if (line.Contains("(ID="))
+                    {
+                        found.Add("\"" +line+"\"");
+                        File.WriteAllLines("c:\\temp\\checked.txt", found);
+                    }
+                }
+                file.Close();
+                File.Delete("c:\\temp\\BridgeDeviceList.txt");
+                return found;
+            }           
+        }
+        public static void _Save_LocalBridge()
+        {
+            string directory = "c:\\Program Files\\VPN_Tools";
+            string arg = "/c cd \"" + directory + "\" && vpncmd_x64.exe localhost:5555 /SERVER /PASSWORD:pirkon12 /CMD BridgeList > c:\\temp\\BridgeList.txt && exit";
+            Process GlbDL = new Process();
+            GlbDL.StartInfo.FileName = "cmd.exe";
+            GlbDL.StartInfo.Arguments = arg;
+            GlbDL.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            GlbDL.Start();
+            GlbDL.WaitForExit();
+            GlbDL.Close();
+        }
+        public static List<string> _Print_Local_Bridge()
+        {
+            List<string> BridgeFound = new List<string>();
+            string Line;
+            StreamReader File1 = new StreamReader("c:\\temp\\BridgeList.txt");
+            {
+                while ((Line = File1.ReadLine()) != null)
+                {
+                    if(Line.Contains("(ID="))
+                    {
+                        BridgeFound.Add(Line);
+                        File.WriteAllLines("c:\\temp\\localbridge.txt", BridgeFound);
+                    }
+                }
+            }
+            File1.Close();
+            File.Delete("c:\\temp\\BridgeList.txt");
+            File.WriteAllText("c:\\temp\\localbridge.txt" , File.ReadAllText("c:\\temp\\localbridge.txt").Replace("|", ""));
+            return BridgeFound;
         }
     }
 }
-
 
