@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using System.ServiceProcess;
-using System.Text;
-using System.Threading.Tasks;
 using System.Management;
-using System.ComponentModel;
+using System.Diagnostics;
+using System;
 
 namespace AdminVPNsetup
 {
@@ -82,6 +79,39 @@ namespace AdminVPNsetup
         {
             return null;
         }
+        }
+        public static void  GetfLocalBridgeDeviceList()
+        {
+            ServiceController sc1 = new ServiceController();
+            sc1.ServiceName = "sevpnbridge";
+            Console.WriteLine("The Bridge Service status is currently set to {0}", sc1.Status.ToString());
+            if (sc1.Status == ServiceControllerStatus.Stopped)
+            {
+                Console.WriteLine("Starting the Bridge Service...");
+            }
+            try
+            {
+                sc1.Start();
+                sc1.WaitForStatus(ServiceControllerStatus.Running);
+                Console.WriteLine("The Bridge Service status is now set to {0}.", sc1.Status.ToString());
+            }
+            catch (InvalidOperationException)
+            {
+                Console.WriteLine("Could not start service");
+            }
+
+            Console.WriteLine("Check if Service Running:       " + "  " + ctl.BridgeServiceCondition);
+            Console.ReadKey();
+            string directory = "c:\\Program Files\\VPN_Tools";
+            string arg = "/c cd \"" + directory + "\" && vpncmd_x64.exe localhost:5555 /SERVER /PASSWORD:pirkon12 /CMD BridgeDeviceList > c:\\temp\\BridgeDeviceList.txt && exit";
+            Process GlbDL = new Process();
+            GlbDL.StartInfo.FileName = "cmd.exe";
+            GlbDL.StartInfo.Arguments = arg;
+            GlbDL.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            GlbDL.Start();
+            GlbDL.WaitForExit();
+            GlbDL.Close();
+
         }
     }
 }

@@ -17,66 +17,30 @@ namespace AdminVPNsetup
         static void Main(string[] args)
 
         {
-            string machineName = System.Environment.MachineName;
-            
-            bool rtdx = CheckInstall.CheckIfInstallDirExists("c:\\Program Files\\VPN_Tools");
-            if (rtdx)
-            {
-                Console.WriteLine("Install Dir Exists");
-                Console.ReadKey();
-            }
-            else
-            {
-                Console.WriteLine("Install Dir Does not Exists");
-                Console.ReadKey();
-            }
-            string SubDirPath = "c:\\Program Files\\VPN_Tools\\backup.vpn_bridge.config";
-            bool subdirx = CheckInstall.CheckIfSubDirExists(SubDirPath);
-            if (subdirx)
-            {
-                Console.WriteLine("BackUpDir exists");
-                Console.ReadKey();
-            }
-            else
-            {
-                Console.WriteLine("BackUp dir Doesnt Exists. Please run Bridge");
-                Console.ReadKey();
-            }
-            string ServiceBridgeExists = "sevpnbridge";
-            bool srvx = CheckInstall.ServiceExists(ServiceBridgeExists);
-            if (srvx)
-            {
-                Console.WriteLine("Service has been Installed");
-                Console.ReadKey();
-            }
-            else
-            {
-                Console.WriteLine("Service has not been Installed");
-                Console.ReadKey();
-            }
-            string serviceNane = "sevpnbridge";
-            Rt = string.Empty;
-            // string fg = servicecheckifrunning(serviceNane, Rt);
-            string fg = CheckInstall.BridgeServiceCondition(serviceNane, Rt);
-            Console.WriteLine(fg);
-            Console.ReadKey();
-            ServiceController sc = new ServiceController("sevpnbridge");
-            string rf = CheckInstall.StartupType(serviceNane);
-            Console.WriteLine(rf);
-            Console.ReadKey();
-            string svstm = CheckInstall.GetStartupType(serviceNane);
-            Console.WriteLine(svstm);
-            Console.ReadKey();
-            var svc = new ServiceController("sevpnbridge");
-            ServiceHelper.ChangeStartMode(svc, ServiceStartMode.Manual);
-            
-            // var svc1 = new ServiceController("sevpnbridge");
-            if (svc.Status != ServiceControllerStatus.Stopped)
-            {
-                svc.Stop();
-            }
-            svc.Close();
+            _Check_Installation();
+            CheckInstall.GetfLocalBridgeDeviceList();
         }
-     }
+        //
+        // Check if Install and Setup is correct
+        //
+        static void _Check_Installation()
+        {
+            ctl.MainControl();
+            Console.WriteLine("Check if Program Install Exists:" + "  " + ctl.InstallDirExists);
+            Console.WriteLine("Check if Config SubDir Exists:  " + "  " + ctl.SubDirPathExists);
+            Console.WriteLine("Check if Service installed:     " + "  " + ctl.BridgeService);
+            if (ctl.BridgeService == "Exists")
+            {
+                Console.WriteLine("Check if Service Running:       " + "  " + ctl.BridgeServiceCondition);
+                Console.WriteLine("Check if Service set to Manual: " + "  " + ctl.BridgeServiceStartMode);
+                Console.ReadKey();
+            }
+            else
+            {
+                Console.WriteLine("You need to install service and set it to Manual");
+                Console.ReadKey();
+            }
+        }
+    }
 }
 
