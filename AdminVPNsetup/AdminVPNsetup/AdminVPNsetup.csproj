@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="CheckInstall.cs" />
     <Compile Include="ctl.cs" />
+    <Compile Include="LocalBridgeChange.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResetToInstall.cs" />
