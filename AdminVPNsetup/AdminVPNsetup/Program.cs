@@ -13,6 +13,7 @@ namespace AdminVPNsetup
 {
     class Program
     {
+        public int flag = 0;
         public static string Rt { get; private set; }
         public static string GrD { get; set; }
         public static string CardChoise { get; set; }
@@ -31,7 +32,14 @@ namespace AdminVPNsetup
             Console.WriteLine("Ready to setup");
             Console.WriteLine("Enter the index number of Network Card you wish to setup as Local Bridge");
             Console.ReadKey();
-            LocalBridgeChang.localbridgechange();
+            if (CardTables.flag == 0)
+            {
+                LocalBridgeChang.localbridgechange();
+            }
+            else
+            {
+                Console.ReadKey();
+            }
             // _Enter_choise();
 
 
