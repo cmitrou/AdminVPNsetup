@@ -31,7 +31,8 @@ namespace AdminVPNsetup
             Console.WriteLine("Ready to setup");
             Console.WriteLine("Enter the index number of Network Card you wish to setup as Local Bridge");
             Console.ReadKey();
-            _Enter_choise();
+            LocalBridgeChang.localbridgechange();
+            // _Enter_choise();
 
 
 

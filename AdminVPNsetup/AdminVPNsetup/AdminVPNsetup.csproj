@@ -65,6 +65,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CardList.cs" />
+    <Compile Include="CardTables.cs" />
     <Compile Include="CheckInstall.cs" />
     <Compile Include="ctl.cs" />
     <Compile Include="LocalBridgeChange.cs" />

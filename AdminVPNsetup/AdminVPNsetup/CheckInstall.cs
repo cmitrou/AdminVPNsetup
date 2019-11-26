@@ -102,7 +102,7 @@ namespace AdminVPNsetup
             }
 
             Console.WriteLine("Check if Service Running:       " + "  " + ctl.BridgeServiceCondition);
-          //  Console.ReadKey();
+            //  Console.ReadKey();
             string directory = "c:\\Program Files\\VPN_Tools";
             string arg = "/c cd \"" + directory + "\" && vpncmd_x64.exe localhost:5555 /SERVER /PASSWORD:pirkon12 /CMD BridgeDeviceList > c:\\temp\\BridgeDeviceList.txt && exit";
             Process GlbDL = new Process();
@@ -113,9 +113,9 @@ namespace AdminVPNsetup
             GlbDL.WaitForExit();
             GlbDL.Close();
         }
-        public static  List<string> _Capable_cards()
+        public static List<string> _Capable_cards()
         {
-           List<string> found = new List<string>();
+            List<string> found = new List<string>();
             string line;
             StreamReader file = new StreamReader("c:\\temp\\BridgeDeviceList.txt");
             {
@@ -123,14 +123,14 @@ namespace AdminVPNsetup
                 {
                     if (line.Contains("(ID="))
                     {
-                        found.Add("\"" +line+"\"");
+                        found.Add("\"" + line + "\"");
                         File.WriteAllLines("c:\\temp\\checked.txt", found);
                     }
                 }
                 file.Close();
                 File.Delete("c:\\temp\\BridgeDeviceList.txt");
                 return found;
-            }           
+            }
         }
         public static void _Save_LocalBridge()
         {
@@ -148,11 +148,15 @@ namespace AdminVPNsetup
         {
             List<string> BridgeFound = new List<string>();
             string Line;
+            if(File.Exists("c:\\temp\\localbridge.txt"))
+            {
+                File.Delete("c:\\temp\\localbridge.txt");
+                    }
             StreamReader File1 = new StreamReader("c:\\temp\\BridgeList.txt");
             {
                 while ((Line = File1.ReadLine()) != null)
                 {
-                    if(Line.Contains("(ID="))
+                    if (Line.Contains("(ID="))
                     {
                         BridgeFound.Add(Line);
                         File.WriteAllLines("c:\\temp\\localbridge.txt", BridgeFound);
@@ -160,9 +164,19 @@ namespace AdminVPNsetup
                 }
             }
             File1.Close();
+            string none = "NONE";
+            File.AppendAllText("c:\\temp\\localbridge.txt", none + Environment.NewLine);
             File.Delete("c:\\temp\\BridgeList.txt");
-            File.WriteAllText("c:\\temp\\localbridge.txt" , File.ReadAllText("c:\\temp\\localbridge.txt").Replace("|", ""));
-            return BridgeFound;
+            string[] test =File.ReadAllLines("c:\\temp\\localbridge.txt");
+            if (test.Contains("NONE"))
+            {
+                return BridgeFound;
+            }
+            else
+            {
+                File.WriteAllText("c:\\temp\\localbridge.txt", File.ReadAllText("c:\\temp\\localbridge.txt").Replace("|", ""));
+                return BridgeFound;
+            }
         }
     }
 }
