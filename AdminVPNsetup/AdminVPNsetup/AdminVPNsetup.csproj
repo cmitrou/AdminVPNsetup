@@ -48,6 +48,9 @@
     <ManifestCertificateThumbprint>3FC6B6D184A7B83F7AC3647FB13D40B275DAD988</ManifestCertificateThumbprint>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EasyConsole, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EasyConsole.1.1.0\lib\net452\EasyConsole.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Management" />
@@ -70,9 +73,16 @@
     <Compile Include="CheckInstall.cs" />
     <Compile Include="ctl.cs" />
     <Compile Include="LocalBridgeChange.cs" />
+    <Compile Include="MainMenu.cs" />
+    <Compile Include="Pages\InputPage.cs" />
+    <Compile Include="Pages\MainPage.cs" />
+    <Compile Include="Pages\Page1.cs" />
+    <Compile Include="Pages\Page2.cs" />
+    <Compile Include="Pages\Page3.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResetToInstall.cs" />
+    <Compile Include="Runner.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="AdminVPNsetup.manifest">

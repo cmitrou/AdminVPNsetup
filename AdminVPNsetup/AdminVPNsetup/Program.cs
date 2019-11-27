@@ -21,7 +21,12 @@ namespace AdminVPNsetup
         static void Main(string[] args)
 
         {
-            _Check_Installation();
+
+
+           new VPNsetupMenu().Run();
+            Console.ReadKey();
+        
+               _Check_Installation();
           //  Console.ReadKey();
             CheckInstall.GetfLocalBridgeDeviceList();
             _PrintBridgeCapableList();
@@ -49,7 +54,7 @@ namespace AdminVPNsetup
         //
         // Check if Install and Setup is correct
         //
-        static void _Check_Installation()
+        public static void _Check_Installation()
         {
             ctl.MainControl();
             Console.WriteLine("Check if Program Install Exists:" + "  " + ctl.InstallDirExists);
@@ -67,7 +72,7 @@ namespace AdminVPNsetup
             //    Console.ReadKey();
             }
         }         
-        static void _PrintBridgeCapableList()
+        public static void _PrintBridgeCapableList()
         {
           
             var Cap_crds = CheckInstall._Capable_cards();
