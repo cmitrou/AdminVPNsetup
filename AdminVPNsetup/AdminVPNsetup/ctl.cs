@@ -24,7 +24,7 @@ namespace AdminVPNsetup
             else
             {
                 InstallDirExists = "Not Exists";
-            }
+            } 
             string SubDirPath = "c:\\Program Files\\VPN_Tools\\backup.vpn_bridge.config";
             bool subdirx = CheckInstall.CheckIfSubDirExists(SubDirPath);
             if (subdirx)
@@ -39,11 +39,11 @@ namespace AdminVPNsetup
             bool srvx = CheckInstall.ServiceExists(ServiceBridgeExists);
             if (srvx)
             {
-                BridgeService = "Exists";
+                BridgeService = "Installed";
             }
             else
             {
-                BridgeService = "Not Exists";
+                BridgeService = "Not Installed";
             }
             string serviceNane = "sevpnbridge";
             Rt = string.Empty;

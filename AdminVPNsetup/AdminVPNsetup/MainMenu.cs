@@ -13,6 +13,7 @@ namespace AdminVPNsetup
         public VPNsetupMenu() : base ("Local Bridge for VPN Conection" , breadcrumbHeader: true)
         {
             AddPage(new Pages.MainPage(this));
+            AddPage(new Pages.Page1(this));
             AddPage(new Pages.InputPage(this));
             SetPage<Pages.MainPage>();
         }

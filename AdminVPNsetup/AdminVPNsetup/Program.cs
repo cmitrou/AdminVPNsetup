@@ -23,11 +23,11 @@ namespace AdminVPNsetup
         {
 
 
-           new VPNsetupMenu().Run();
+            new VPNsetupMenu().Run();
             Console.ReadKey();
-        
-               _Check_Installation();
-          //  Console.ReadKey();
+
+            _Check_Installation();
+            //  Console.ReadKey();
             CheckInstall.GetfLocalBridgeDeviceList();
             _PrintBridgeCapableList();
             CheckInstall._Save_LocalBridge();
@@ -64,26 +64,26 @@ namespace AdminVPNsetup
             {
                 Console.WriteLine("Check if Service Running:       " + "  " + ctl.BridgeServiceCondition);
                 Console.WriteLine("Check if Service set to Manual: " + "  " + ctl.BridgeServiceStartMode);
-             //   Console.ReadKey();
+                //   Console.ReadKey();
             }
             else
             {
                 Console.WriteLine("You need to install service and set it to Manual");
-            //    Console.ReadKey();
+                //    Console.ReadKey();
             }
-        }         
+        }
         public static void _PrintBridgeCapableList()
         {
-          
+
             var Cap_crds = CheckInstall._Capable_cards();
             int w1;
             for (int w = 0; w < Cap_crds.Count; w++)
             {
-                w1 = w + 1; 
+                w1 = w + 1;
                 Console.WriteLine(w1.ToString() + ". " + Cap_crds[w].ToString());
 
-            }            
-        } 
+            }
+        }
         static void _Local_Bridge_Set()
         {
             string LBS = File.ReadAllText("c:\\temp\\localbridge.txt");
@@ -126,7 +126,66 @@ namespace AdminVPNsetup
             CardChoise = _val;
             Console.ReadKey();
         }
+        public static string _is_Directory_exists()
+        {
+            ctl.MainControl();
+            Console.WriteLine("Check if Program Install Exists:" + "  " + ctl.InstallDirExists);
+            string gh = null;
+            return gh = ctl.InstallDirExists;
+        }
+        public static string _is_SubDirectory_exists()
+        {
+            ctl.MainControl();
+            Console.WriteLine("Check if Program Sub Dirs exists:" + " " + ctl.SubDirPathExists);
+            string gj = null;
+            return gj = ctl.SubDirPathExists;           
+        }
+        public static string _is_Service_installed()
+        {
+            ctl.MainControl();
+            Console.WriteLine("Check is Bridge Service is installed:" + " " + ctl.BridgeService);
+            string gk = null;
+            return gk = ctl.BridgeService;
+        }
+        public static string _Bridge_service_condition()
+        {
+            string serviceNane = "sevpnbridge";
+            Rt = string.Empty;
+            // string fg = servicecheckifrunning(serviceNane, Rt);
+            string fg = CheckInstall.BridgeServiceCondition(serviceNane, Rt);
+          //  CheckInstall.BridgeServiceCondition = fg;
+            ServiceController sc = new ServiceController("sevpnbridge");
+            string rf = CheckInstall.StartupType(serviceNane);
+            Console.WriteLine("Check Bridge Service Startup Mode:" + " " + rf);
+            return rf;
+        }
+        public static string _BridgeServiceCondition()
+        {
 
+            string ServiceName = "sevpnbridge";
+            ServiceController sc = new ServiceController(ServiceName);
+            switch (sc.Status)
+            {
+                case ServiceControllerStatus.Running:
+                    Console.WriteLine("Bridge Service Condition:" + "Running " );
+                    return "Running";
+                case ServiceControllerStatus.Stopped:
+                    Console.WriteLine("Bridge Service Condition:" + "Stopped ");
+                    return "Stopped";
+                case ServiceControllerStatus.Paused:
+                    Console.WriteLine("Bridge Service Condition:" + "Paused ");
+                    return "Paused";
+                case ServiceControllerStatus.StopPending:
+                    Console.WriteLine("Bridge Service Condition:" + "Stopping ");
+                    return "Stopping";
+                case ServiceControllerStatus.StartPending:
+                    Console.WriteLine("Bridge Service Condition:" + "Starting ");
+                    return "Starting";
+                default:
+                    Console.WriteLine("Bridge Service Condition:" + "Status Changing ");
+                    return "Status Changing";
+            }
+        }
     }
 }
 
