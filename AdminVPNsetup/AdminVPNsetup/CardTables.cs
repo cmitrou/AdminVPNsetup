@@ -29,5 +29,12 @@ namespace AdminVPNsetup
         [DisplayName("Arg String")]
         public static string _arg_strg
         { get; set; }
+        [DisplayName("Service Exists")]
+        public static string _service_exists_
+        { get; set; }
+        [DisplayName("Local Bridge Interface")]
+        public static string _local_bridge_interface_
+        { get; set; }
+
     }
 }

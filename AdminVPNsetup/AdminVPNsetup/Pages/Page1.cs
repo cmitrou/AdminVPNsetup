@@ -18,7 +18,7 @@ namespace AdminVPNsetup.Pages
                   new Option("Check Bridge Service Start Up Mode", () => AdminVPNsetup.Program._Bridge_service_condition()),
                   new Option("Check Bridge Service Condition", () => AdminVPNsetup.Program._BridgeServiceCondition()),
                   new Option("Check Bridge Hub", () => Console.WriteLine("Hub bridge")),
-                  new Option("Check Network Cards", () => AdminVPNsetup.CheckInstall._Print_Local_Bridge()),
+                  new Option("Check Local Bridge Card", () => AdminVPNsetup.CheckInstall._Print_Local_Bridge()),
                   new Option("Check if Cascade connection is setup", () => Console.WriteLine("Cascade connection")))
                    
         { }

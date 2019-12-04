@@ -85,7 +85,7 @@ namespace AdminVPNsetup
         {
             ServiceController sc1 = new ServiceController();
             sc1.ServiceName = "sevpnbridge";
-            Console.WriteLine("The Bridge Service status is currently set to {0}", sc1.Status.ToString());
+        //    Console.WriteLine("The Bridge Service status is currently set to {0}", sc1.Status.ToString());
             if (sc1.Status == ServiceControllerStatus.Stopped)
             {
                 Console.WriteLine("Starting the Bridge Service...");
@@ -94,14 +94,14 @@ namespace AdminVPNsetup
             {
                 sc1.Start();
                 sc1.WaitForStatus(ServiceControllerStatus.Running);
-                Console.WriteLine("The Bridge Service status is now set to {0}.", sc1.Status.ToString());
+            //    Console.WriteLine("The Bridge Service status is now set to {0}.", sc1.Status.ToString());
             }
             catch (InvalidOperationException)
             {
-                Console.WriteLine("Could not start service");
+            //    Console.WriteLine("Could not start service");
             }
 
-            Console.WriteLine("Check if Service Running:       " + "  " + ctl.BridgeServiceCondition);
+          //  Console.WriteLine("Check if Service Running:       " + "  " + ctl.BridgeServiceCondition);
             //  Console.ReadKey();
             string directory = "c:\\Program Files\\VPN_Tools";
             string arg = "/c cd \"" + directory + "\" && vpncmd_x64.exe localhost:5555 /SERVER /PASSWORD:pirkon12 /CMD BridgeDeviceList > c:\\temp\\BridgeDeviceList.txt && exit";
@@ -134,6 +134,7 @@ namespace AdminVPNsetup
         }
         public static void _Save_LocalBridge()
         {
+            if(File.Exists("c:\\temp\\BridgeList.txt")) { File.Delete("c:\\temp\\BridgeList.txt"); };
             string directory = "c:\\Program Files\\VPN_Tools";
             string arg = "/c cd \"" + directory + "\" && vpncmd_x64.exe localhost:5555 /SERVER /PASSWORD:pirkon12 /CMD BridgeList > c:\\temp\\BridgeList.txt && exit";
             Process GlbDL = new Process();
@@ -160,22 +161,37 @@ namespace AdminVPNsetup
                     {
                         BridgeFound.Add(Line);
                         File.WriteAllLines("c:\\temp\\localbridge.txt", BridgeFound);
+                        File.WriteAllText("c:\\temp\\localbridge.txt", File.ReadAllText("c:\\temp\\localbridge.txt").Replace("|", ""));
+                       
                     }
                 }
             }
+            
             File1.Close();
-            string none = "NONE";
-            File.AppendAllText("c:\\temp\\localbridge.txt", none + Environment.NewLine);
-            File.Delete("c:\\temp\\BridgeList.txt");
-            string[] test =File.ReadAllLines("c:\\temp\\localbridge.txt");
-            if (test.Contains("NONE"))
+            if (File.Exists("c:\\temp\\localbridge.txt"))
             {
+                string lbrg = File.ReadAllText("c:\\temp\\localbridge.txt");
+                Console.WriteLine("Local Bridge is setup to:   " + lbrg);
                 return BridgeFound;
             }
-            else
-            {
-                File.WriteAllText("c:\\temp\\localbridge.txt", File.ReadAllText("c:\\temp\\localbridge.txt").Replace("|", ""));
+            else 
+              {
+                string none = "NONE";
+                File.AppendAllText("c:\\temp\\localbridge.txt", none + Environment.NewLine);
+             //   File.Delete("c:\\temp\\BridgeList.txt");
+                //string[] test = File.ReadAllLines("c:\\temp\\localbridge.txt");
+                //if (test.Contains("NONE"))
+                //{
+                //    Console.WriteLine("No Local Bridge inteface has been setup");
+
+                //    return BridgeFound;
+                //}
+                //else
+                //{
+                //    File.WriteAllText("c:\\temp\\localbridgeSetup.txt", File.ReadAllText("c:\\temp\\localbridgeSetup.txt").Replace("|", ""));
+                Console.WriteLine("Local Bridge is not setup"); 
                 return BridgeFound;
+                //}
             }
         }
     }
