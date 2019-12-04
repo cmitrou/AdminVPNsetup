@@ -132,6 +132,25 @@ namespace AdminVPNsetup
                 return found;
             }
         }
+        public static void _Hub_list()
+        {
+            string file2 = "c:\\temp\\hublist.txt";
+            if (File.Exists(file2)) { File.Delete(file2); }
+            string directory = "c\\Program Files\\VPN_Tools";
+            string arg = "/c cd \"" + directory + "\" && vpncmd_x64.exe localhost:5555 /SERVER /PASSWORD:pirkon12 /CMD Hublist > c:\\temp\\hublist.txt && exit";
+            Process hbl = new Process();
+            hbl.StartInfo.FileName = "cmd.exe";
+            hbl.StartInfo.Arguments = arg;
+            hbl.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            hbl.Start();
+            hbl.WaitForExit();
+            hbl.Close();
+            
+            string hblst = File.ReadAllText("c:\\temp\\hublist.txt");
+            Console.WriteLine("Hub Name:   " + hblst);
+        }
+
+
         public static void _Save_LocalBridge()
         {
             if(File.Exists("c:\\temp\\BridgeList.txt")) { File.Delete("c:\\temp\\BridgeList.txt"); };
@@ -145,6 +164,25 @@ namespace AdminVPNsetup
             GlbDL.WaitForExit();
             GlbDL.Close();
         }
+
+        public static void _Check_Cascade_setup()
+
+        {
+            if(File.Exists("c:\\temp\\cascadelist.txt")) { File.Delete("c:\\temp\\cascadelist.txt"); };
+            string directory = "c:\\Program Files\\VPN_Tools";
+           // string arg1 = " CascadeList > cascadelist.txt && exit";            
+            string arg = "/c cd \"" + directory + "\" && vpncmd_x64.exe localhost:5555 /SERVER /PASSWORD:pirkon12 /IN:cascd_list /OUT:c:\\temp\\cascadelist.txt";
+          //  arg += arg1;
+            Process cscl = new Process();
+            cscl.StartInfo.FileName = "cmd.exe";
+            cscl.StartInfo.Arguments = arg;
+            cscl.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            cscl.Start();
+            cscl.WaitForExit();
+            cscl.Close();
+
+        }
+
         public static List<string> _Print_Local_Bridge()
         {
             List<string> BridgeFound = new List<string>();
