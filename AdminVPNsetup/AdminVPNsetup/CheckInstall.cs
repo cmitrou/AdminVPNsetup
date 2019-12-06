@@ -130,6 +130,7 @@ namespace AdminVPNsetup
                 }
                 file.Close();
                 File.Delete("c:\\temp\\BridgeDeviceList.txt");
+                CardTables._netcards.ForEach(i => Console.WriteLine("{0}", i));
                 return found;
             }
         }
