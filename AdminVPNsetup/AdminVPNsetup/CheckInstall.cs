@@ -125,6 +125,7 @@ namespace AdminVPNsetup
                     {
                         found.Add("\"" + line + "\"");
                         File.WriteAllLines("c:\\temp\\checked.txt", found);
+                        CardTables._netcards = found;
                     }
                 }
                 file.Close();
@@ -137,20 +138,47 @@ namespace AdminVPNsetup
             string file2 = "c:\\temp\\hublist1.txt";
             if (File.Exists(file2)) { File.Delete(file2); }
             string directory = "c:\\Program Files\\VPN_Tools";
-
             string arg = "/c cd \"" + directory + "\" && vpncmd_x64.exe localhost:5555 /SERVER /PASSWORD:pirkon12 /CMD Hublist > " + file2 + " && exit";
             Process hbl = new Process();
             hbl.StartInfo.FileName = "cmd.exe";
             hbl.StartInfo.Arguments = arg;
-            //  hbl.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-
-
+            hbl.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
             hbl.Start();
             hbl.WaitForExit();
             hbl.Close();
-            
-            string hblst = File.ReadAllText(file2);
-            Console.WriteLine("Hub Name:   " + hblst);
+            string Virtual_Hub_name = "Virtual Hub Name";
+            string[] lines = File.ReadAllLines(file2);
+            foreach(string line in lines)
+            {
+                if(line.Contains(Virtual_Hub_name))
+                {
+                  //  Console.WriteLine(line.Replace("|",""));
+                    CardTables._Hub_name = line.Replace("|", "");
+                }
+            }
+            string Status = "Status";
+            foreach (string line in lines)
+            {
+                if(line.Contains(Status))
+                {
+                  //  Console.WriteLine(line.Replace("|", ""));
+                    CardTables._Hub_status = line.Replace("|", "");
+                }
+            }
+            string Type = "Type";
+            foreach (string line in lines)
+            {
+                if (line.Contains(Type))
+                {
+                 //   Console.WriteLine(line.Replace("|", ""));
+                    CardTables._Hub_type = line.Replace("|", "");
+                }
+            }
+            Console.WriteLine(CardTables._Hub_name);
+            Console.WriteLine(CardTables._Hub_status);
+            Console.WriteLine(CardTables._Hub_type);
+            return;
+
         }
 
 
@@ -190,7 +218,8 @@ namespace AdminVPNsetup
             {
                 if (line.Contains(SettingName))
                 {
-                    Console.WriteLine(line);
+               //    Console.WriteLine(line.Replace("|", ""));
+                    CardTables._Cascade_Setting_Name = line.Replace("|", "");
                 }
             }
             string Status = "Status";
@@ -198,7 +227,8 @@ namespace AdminVPNsetup
             {
                 if(line.Contains(Status))
                 {
-                    Console.WriteLine(line);
+                 //   Console.WriteLine(line.Replace("|", ""));
+                    CardTables._Cascade_Status = line.Replace("|", "");
                 }
             }
             string Destination_VPN_Server = "Destination VPN Server";
@@ -206,7 +236,8 @@ namespace AdminVPNsetup
             {
                 if (line.Contains(Destination_VPN_Server))
                 {
-                    Console.WriteLine(line);
+                 //   Console.WriteLine(line.Replace("|", ""));
+                    CardTables._Destination_VPN_Server = line.Replace("|", "");
                 }
             }
             return;
@@ -238,7 +269,10 @@ namespace AdminVPNsetup
             if (File.Exists("c:\\temp\\localbridge.txt"))
             {
                 string lbrg = File.ReadAllText("c:\\temp\\localbridge.txt");
-                Console.WriteLine("Local Bridge is setup to:   " + lbrg);
+                //                Console.WriteLine("Local Bridge is setup to:   " + lbrg);
+
+                CardTables._local_bridge_interface_ = lbrg.Replace("1     ", "").Replace("BRIDGE          ", "");
+                Console.WriteLine(CardTables._local_bridge_interface_);
                 return BridgeFound;
             }
             else 
@@ -256,7 +290,10 @@ namespace AdminVPNsetup
                 //else
                 //{
                 //    File.WriteAllText("c:\\temp\\localbridgeSetup.txt", File.ReadAllText("c:\\temp\\localbridgeSetup.txt").Replace("|", ""));
-                Console.WriteLine("Local Bridge is not setup"); 
+ //               Console.WriteLine("Local Bridge is not setup");
+                CardTables._local_bridge_interface_ = none;
+                Console.WriteLine(CardTables._local_bridge_interface_);
+
                 return BridgeFound;
                 //}
             }

@@ -12,7 +12,22 @@ namespace AdminVPNsetup
         public static int flag
         { get; set; }
         [DisplayName("Hub Name")]
-        public string _Hub_name
+        public static string _Hub_name
+        { get; set; }
+        [DisplayName("Hub Status")]
+        public static string _Hub_status
+        { get; set; }
+        [DisplayName("Hub Type")]
+        public static string _Hub_type
+        { get; set; }
+        [DisplayName("Cascade Setting Name")]
+        public static string _Cascade_Setting_Name
+        { get; set; }
+        [DisplayName("Cascade Status")]
+        public static string _Cascade_Status
+        { get; set; }
+        [DisplayName("Destination VPN Server")]
+        public static string _Destination_VPN_Server
         { get; set; }
         [DisplayName("Card Number")]
         public string _card_nbr
@@ -34,6 +49,9 @@ namespace AdminVPNsetup
         { get; set; }
         [DisplayName("Local Bridge Interface")]
         public static string _local_bridge_interface_
+        { get; set; }
+        [DisplayName("NetCards")]
+        public static List<string> _netcards
         { get; set; }
 
     }
