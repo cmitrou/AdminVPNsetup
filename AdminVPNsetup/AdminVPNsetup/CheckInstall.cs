@@ -134,19 +134,22 @@ namespace AdminVPNsetup
         }
         public static void _Hub_list()
         {
-            string file2 = "c:\\temp\\hublist.txt";
+            string file2 = "c:\\temp\\hublist1.txt";
             if (File.Exists(file2)) { File.Delete(file2); }
-            string directory = "c\\Program Files\\VPN_Tools";
-            string arg = "/c cd \"" + directory + "\" && vpncmd_x64.exe localhost:5555 /SERVER /PASSWORD:pirkon12 /CMD Hublist > c:\\temp\\hublist.txt && exit";
+            string directory = "c:\\Program Files\\VPN_Tools";
+
+            string arg = "/c cd \"" + directory + "\" && vpncmd_x64.exe localhost:5555 /SERVER /PASSWORD:pirkon12 /CMD Hublist > " + file2 + " && exit";
             Process hbl = new Process();
             hbl.StartInfo.FileName = "cmd.exe";
             hbl.StartInfo.Arguments = arg;
-          //  hbl.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            //  hbl.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+
+
             hbl.Start();
             hbl.WaitForExit();
             hbl.Close();
             
-            string hblst = File.ReadAllText("c:\\temp\\hublist.txt");
+            string hblst = File.ReadAllText(file2);
             Console.WriteLine("Hub Name:   " + hblst);
         }
 
