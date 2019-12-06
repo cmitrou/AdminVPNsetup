@@ -141,7 +141,7 @@ namespace AdminVPNsetup
             Process hbl = new Process();
             hbl.StartInfo.FileName = "cmd.exe";
             hbl.StartInfo.Arguments = arg;
-            hbl.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+          //  hbl.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
             hbl.Start();
             hbl.WaitForExit();
             hbl.Close();
@@ -181,6 +181,32 @@ namespace AdminVPNsetup
             cscl.WaitForExit();
             cscl.Close();
 
+            string SettingName = "Setting Name";
+            string[] lines = File.ReadAllLines("c:\\temp\\cascadelist.txt");
+            foreach (string line in lines)
+            {
+                if (line.Contains(SettingName))
+                {
+                    Console.WriteLine(line);
+                }
+            }
+            string Status = "Status";
+            foreach(string line in lines)
+            {
+                if(line.Contains(Status))
+                {
+                    Console.WriteLine(line);
+                }
+            }
+            string Destination_VPN_Server = "Destination VPN Server";
+            foreach(string line in lines)
+            {
+                if (line.Contains(Destination_VPN_Server))
+                {
+                    Console.WriteLine(line);
+                }
+            }
+            return;
         }
 
         public static List<string> _Print_Local_Bridge()
