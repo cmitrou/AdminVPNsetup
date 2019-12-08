@@ -130,7 +130,7 @@ namespace AdminVPNsetup
                 }
                 file.Close();
                 File.Delete("c:\\temp\\BridgeDeviceList.txt");
-                CardTables._netcards.ForEach(i => Console.WriteLine("{0}", i));
+             //   CardTables._netcards.ForEach(i => Console.WriteLine("{0}", i));
                 return found;
             }
         }
@@ -154,8 +154,12 @@ namespace AdminVPNsetup
                 if(line.Contains(Virtual_Hub_name))
                 {
                   //  Console.WriteLine(line.Replace("|",""));
-                    CardTables._Hub_name = line.Replace("|", "");
+                    CardTables._Hub_name = line.Replace("Virtual Hub Name  |", "");
                 }
+                //else
+                //{
+                //    CardTables._Hub_name = "NONE";
+                //}
             }
             string Status = "Status";
             foreach (string line in lines)
@@ -163,7 +167,7 @@ namespace AdminVPNsetup
                 if(line.Contains(Status))
                 {
                   //  Console.WriteLine(line.Replace("|", ""));
-                    CardTables._Hub_status = line.Replace("|", "");
+                    CardTables._Hub_status = line.Replace("Status            |", "");
                 }
             }
             string Type = "Type";
@@ -172,12 +176,14 @@ namespace AdminVPNsetup
                 if (line.Contains(Type))
                 {
                  //   Console.WriteLine(line.Replace("|", ""));
-                    CardTables._Hub_type = line.Replace("|", "");
+                    CardTables._Hub_type = line.Replace("Type              |", "");
                 }
             }
-            Console.WriteLine(CardTables._Hub_name);
-            Console.WriteLine(CardTables._Hub_status);
-            Console.WriteLine(CardTables._Hub_type);
+            Console.WriteLine("--------------------------------------------------------------");
+            Console.WriteLine("Virtual Hub Name      : " + CardTables._Hub_name);
+            Console.WriteLine("Status                : " + CardTables._Hub_status);
+            Console.WriteLine("Type                  : " + CardTables._Hub_type);
+            Console.WriteLine("--------------------------------------------------------------");
             return;
 
         }

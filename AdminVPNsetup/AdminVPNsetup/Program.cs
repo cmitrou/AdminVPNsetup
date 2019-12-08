@@ -29,13 +29,13 @@ namespace AdminVPNsetup
 
 
  //           _PrintBridgeCapableList();
-            CheckInstall._Save_LocalBridge();
-            CheckInstall._Print_Local_Bridge();
+ //           CheckInstall._Save_LocalBridge();
+ //           CheckInstall._Print_Local_Bridge();
  //          _Local_Bridge_Set();
             //Console.WriteLine("  ");
             //Console.WriteLine("Ready to setup");
             //Console.WriteLine("Enter the index number of Network Card you wish to setup as Local Bridge");
-            Console.ReadKey();
+//            Console.ReadKey();
             if (CardTables.flag == 0)
             {
                 LocalBridgeChang.localbridgechange();
@@ -72,12 +72,16 @@ namespace AdminVPNsetup
         }
         public static void _PrintBridgeCapableList()
         {
-
-            var Cap_crds = CheckInstall._Capable_cards();
+            CheckInstall._Capable_cards();
+            // var Cap_crds = CheckInstall._Capable_cards();
+            var Cap_crds = CardTables._netcards;
+           // int w;
             int w1;
             for (int w = 0; w < Cap_crds.Count; w++)
+
             {
                 w1 = w + 1;
+
                 Console.WriteLine(w1.ToString() + ". " + Cap_crds[w].ToString());
 
             }
