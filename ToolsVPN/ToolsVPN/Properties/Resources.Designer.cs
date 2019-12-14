@@ -61,6 +61,69 @@ namespace ToolsVPN.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tools.
+        /// </summary>
+        internal static string CascadeConnectionCreate {
+            get {
+                return ResourceManager.GetString("CascadeConnectionCreate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string CascadeConnectionName {
+            get {
+                return ResourceManager.GetString("CascadeConnectionName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to C:\\Program Files\\VPN_Tools.
+        /// </summary>
+        internal static string ExecDir {
+            get {
+                return ResourceManager.GetString("ExecDir", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 5555.
+        /// </summary>
+        internal static string LocalHostPort {
+            get {
+                return ResourceManager.GetString("LocalHostPort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BRIDGE.
+        /// </summary>
+        internal static string LocalHubName {
+            get {
+                return ResourceManager.GetString("LocalHubName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to localhost.
+        /// </summary>
+        internal static string LocalServer {
+            get {
+                return ResourceManager.GetString("LocalServer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to pirkon12.
+        /// </summary>
+        internal static string LocalServerPassword {
+            get {
+                return ResourceManager.GetString("LocalServerPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 5555.
         /// </summary>
         internal static string Port {
@@ -75,6 +138,51 @@ namespace ToolsVPN.Properties {
         internal static string Server {
             get {
                 return ResourceManager.GetString("Server", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to C:\\temp.
+        /// </summary>
+        internal static string tmp_dir {
+            get {
+                return ResourceManager.GetString("tmp_dir", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RMT.
+        /// </summary>
+        internal static string vpn_hub {
+            get {
+                return ResourceManager.GetString("vpn_hub", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to C:\\Program Files\\VPN_Tools\\vpnbridge_x64.exe.
+        /// </summary>
+        internal static string vpnbridge_exe {
+            get {
+                return ResourceManager.GetString("vpnbridge_exe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to C:\\Program Files\\VPN_Tools\\vpncmd_x64.exe.
+        /// </summary>
+        internal static string vpncmd_exe {
+            get {
+                return ResourceManager.GetString("vpncmd_exe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to VPN.
+        /// </summary>
+        internal static string vpnhubname {
+            get {
+                return ResourceManager.GetString("vpnhubname", resourceCulture);
             }
         }
     }

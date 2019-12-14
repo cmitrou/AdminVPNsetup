@@ -5,9 +5,11 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ToolsVPN.Properties;
+
 
 namespace ToolsVPN
 {
@@ -17,12 +19,25 @@ namespace ToolsVPN
         public ToolsVPN()
         {
             InitializeComponent();
-            HostName.Text = Resources.Server;
-            Port.Text = Resources.Port;
-            string _user = User.Text;
-            string _pass = Pass.Text;
-            User.Text = null;
-            Pass = null;
+            vpnValues._vpn_host = Resources.Server;
+            vpnValues._vpn_host_port = Resources.Port;
+            vpnValues._vpn_hub_name = Resources.vpn_hub;
+            vpnValues._ExecDir = Resources.ExecDir;
+            vpnValues._vpnbridge_exe = Resources.vpnbridge_exe;
+            vpnValues._vpncmd_exe = Resources.vpncmd_exe;
+            vpnValues._tmp_dir = Resources.tmp_dir;
+            vpnValues._cascdade_connection_name = Resources.CascadeConnectionName;
+            vpnValues._cascade_connection_create = Resources.CascadeConnectionCreate;
+            vpnValues._local_host_name = Resources.LocalServer;
+            vpnValues._local_host_port = Resources.LocalHostPort;
+            vpnValues._local_hub_name = Resources.LocalHubName;
+            vpnValues._local_host_server_password = Resources.LocalServerPassword;
+            HostName.Text = vpnValues._vpn_host;
+            Port.Text = vpnValues._vpn_host_port;
+            User.Text = null;          
+            Pass.Text = null;
+
+            User.Select();
            
         }
 
@@ -37,10 +52,46 @@ namespace ToolsVPN
 
         private void _connect_button_MouseClick(object sender, MouseEventArgs e)
         {
-            if (String.IsNullOrEmpty(User.Text) || (String.IsNullOrEmpty(Pass.Text)))
+            CheckInputValues._check_input(User.Text, Pass.Text);
+            string val = "Connect To \n" + vpnValues._vpn_host + "\n" + vpnValues._vpn_host_port + "\n" + "with user name \n"+ vpnValues._vpn_user;
+            string cap = "Values To Connect ";           
+            MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+            DialogResult result;
+            result = MessageBox.Show(val, cap, buttons);
+            if (result == System.Windows.Forms.DialogResult.Yes)
             {
-                MessageBox.Show("Please Enter Correct UserName and Password");
-            };
+                
+                PrepareToConnect._Check_Cascade_setup();
+                PrepareToConnect._Cascade_conx_stop();
+                System.Threading.Thread.Sleep(1000);
+                PrepareToConnect._Delete_cascade_connection();
+                System.Threading.Thread.Sleep(1000);
+                PrepareToConnect._Create_Cascade_connection();
+                System.Threading.Thread.Sleep(1000);
+                PrepareToConnect._Check_Cascade_setup();
+                System.Threading.Thread.Sleep(1000);
+                PrepareToConnect._Cascade_conx_start();
+                
+            }
+
+
+            
+        }
+
+        private void ToolsVPN_Load_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void HostName_TextChanged(object sender, EventArgs e)
+        {
+            vpnValues._vpn_host = HostName.Text;
+
+        }
+
+        private void Port_TextChanged(object sender, EventArgs e)
+        {
+            vpnValues._vpn_host_port = Port.Text;
         }
     }
 }
