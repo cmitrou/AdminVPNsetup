@@ -69,7 +69,7 @@ namespace AdminVPNsetup
             {
                 bowl1 = 0;
                 Console.Clear();
-                CardTables.flag = 0;
+                CardTables.flag = 1;
             }
             Console.ReadKey();
         }
