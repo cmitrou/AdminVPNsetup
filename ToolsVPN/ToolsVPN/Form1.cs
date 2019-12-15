@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -19,6 +20,9 @@ namespace ToolsVPN
         public ToolsVPN()
         {
             InitializeComponent();
+
+
+
             vpnValues._vpn_host = Resources.Server;
             vpnValues._vpn_host_port = Resources.Port;
             vpnValues._vpn_hub_name = Resources.vpn_hub;
@@ -36,9 +40,12 @@ namespace ToolsVPN
             Port.Text = vpnValues._vpn_host_port;
             User.Text = null;          
             Pass.Text = null;
+            string path = vpnValues._tmp_dir;
+            if (Directory.Exists(path)) { return; } else { Directory.CreateDirectory(path); };
 
             User.Select();
            
+
         }
 
 
@@ -60,12 +67,12 @@ namespace ToolsVPN
             result = MessageBox.Show(val, cap, buttons);
             if (result == System.Windows.Forms.DialogResult.Yes)
             {
-                
-                PrepareToConnect._Check_Cascade_setup();
-                PrepareToConnect._Cascade_conx_stop();
-                System.Threading.Thread.Sleep(1000);
-                PrepareToConnect._Delete_cascade_connection();
-                System.Threading.Thread.Sleep(1000);
+                PrepareToConnect._init();
+             //   PrepareToConnect._Start_sevpnservice();
+                vpnValues._vpn_host = HostName.Text;
+                vpnValues._vpn_host_port = Port.Text;
+
+                vpnValues._cascade_connection_create = Resources.CascadeConnectionCreate;
                 PrepareToConnect._Create_Cascade_connection();
                 System.Threading.Thread.Sleep(1000);
                 PrepareToConnect._Check_Cascade_setup();
@@ -93,5 +100,23 @@ namespace ToolsVPN
         {
             vpnValues._vpn_host_port = Port.Text;
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            PrepareToConnect._Check_Cascade_setup();
+            PrepareToConnect._Cascade_conx_stop();
+            
+            System.Threading.Thread.Sleep(500);
+            PrepareToConnect._Delete_cascade_connection();
+            System.Threading.Thread.Sleep(1000);
+            PrepareToConnect._Stop_sevpnservice();
+            string path = vpnValues._tmp_dir;
+            Directory.Delete(path);
+            Close();
+
+        }
+
+
+        
     }
 }

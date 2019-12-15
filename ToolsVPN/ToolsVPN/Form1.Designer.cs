@@ -30,6 +30,7 @@ namespace ToolsVPN
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ToolsVPN));
             this.ServerIPHost = new System.Windows.Forms.Label();
             this.ServerPort = new System.Windows.Forms.Label();
             this.Connectto = new System.Windows.Forms.Label();
@@ -161,6 +162,7 @@ namespace ToolsVPN
             this.button2.TabIndex = 10;
             this.button2.Text = "Disconnect";
             this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // ToolsVPN
             // 
@@ -179,6 +181,7 @@ namespace ToolsVPN
             this.Controls.Add(this.ServerPort);
             this.Controls.Add(this.ServerIPHost);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ToolsVPN";
             this.Text = "     ToolsVPN";

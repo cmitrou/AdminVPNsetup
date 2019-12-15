@@ -5,6 +5,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ServiceProcess;
+using ToolsVPN.Properties;
+
 
 namespace ToolsVPN
 {
@@ -14,7 +17,6 @@ namespace ToolsVPN
         {
            
         }
-
         public static void _Delete_cascade_connection()
         {
             if (!string.IsNullOrEmpty(vpnValues._cascdade_connection_name))
@@ -163,13 +165,76 @@ namespace ToolsVPN
                 Process castp = new Process();
                 castp.StartInfo.FileName = "cmd.exe";
                 castp.StartInfo.Arguments = arg;
-             //   castp.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+                castp.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
                 castp.Start();
                 castp.WaitForExit();
                 castp.Close();
                 File.Delete(vpnValues._tmp_dir + "\\casdstop");
             }
             return;
+        }
+        public static string _BridgeServiceCondition(string serviceName)
+        {
+
+            string ServiceName = "sevpnbridge";
+            ServiceController sc = new ServiceController(ServiceName);
+            switch (sc.Status)
+            {
+                case ServiceControllerStatus.Running:
+                    return "Running";
+                case ServiceControllerStatus.Stopped:
+                    return "Stopped";
+                case ServiceControllerStatus.Paused:
+                    return "Paused";
+                case ServiceControllerStatus.StopPending:
+                    return "Stopping";
+                case ServiceControllerStatus.StartPending:
+                    return "Starting";
+                default:
+                    return "Status Changing";
+            }
+        }
+        public static void _Start_sevpnservice()
+        {
+            string ServiceName = "sevpnbridge";
+            ServiceController sc = new ServiceController(ServiceName);
+            if (sc.Status == ServiceControllerStatus.Stopped)
+                sc.Start();
+            System.Threading.Thread.Sleep(1000);
+            return;
+        }
+        public static void _Stop_sevpnservice()
+        {
+            string ServiceName = "sevpnbridge";
+            ServiceController sc = new ServiceController(ServiceName);
+            if (sc.Status == ServiceControllerStatus.Running)
+                sc.Stop();
+            System.Threading.Thread.Sleep(1000);
+            return;
+        }
+        public static void _init()
+        {
+            vpnValues._vpn_host = Resources.Server;
+            vpnValues._vpn_host_port = Resources.Port;
+            vpnValues._vpn_hub_name = Resources.vpn_hub;
+            vpnValues._ExecDir = Resources.ExecDir;
+            vpnValues._vpnbridge_exe = Resources.vpnbridge_exe;
+            vpnValues._vpncmd_exe = Resources.vpncmd_exe;
+            vpnValues._tmp_dir = Resources.tmp_dir;
+            vpnValues._cascdade_connection_name = Resources.CascadeConnectionName;
+            vpnValues._cascade_connection_create = Resources.CascadeConnectionCreate;
+            vpnValues._local_host_name = Resources.LocalServer;
+            vpnValues._local_host_port = Resources.LocalHostPort;
+            vpnValues._local_hub_name = Resources.LocalHubName;
+            vpnValues._local_host_server_password = Resources.LocalServerPassword;
+            PrepareToConnect._Start_sevpnservice();
+            System.Threading.Thread.Sleep(500);
+            PrepareToConnect._Check_Cascade_setup();
+            PrepareToConnect._Start_sevpnservice();
+            System.Threading.Thread.Sleep(500);
+          //  PrepareToConnect._Delete_cascade_connection();
+          //  PrepareToConnect._Stop_sevpnservice();
+            System.Threading.Thread.Sleep(1000);
         }
     }
     
