@@ -148,10 +148,10 @@
     <value>C:\\temp</value>
   </data>
   <data name="vpnbridge_exe" xml:space="preserve">
-    <value>C:\\Program Files\\VPN_Tools\\vpnbridge_x64.exe</value>
+    <value>C:\\Program Files\\VPN_Tools\\vpnbridge.exe</value>
   </data>
   <data name="vpncmd_exe" xml:space="preserve">
-    <value>C:\\Program Files\\VPN_Tools\\vpncmd_x64.exe</value>
+    <value>C:\\Program Files\\VPN_Tools\\vpncmd.exe</value>
   </data>
   <data name="vpnhubname" xml:space="preserve">
     <value>RMT</value>

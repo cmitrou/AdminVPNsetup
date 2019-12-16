@@ -160,7 +160,7 @@ namespace ToolsVPN.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to C:\\Program Files\\VPN_Tools\\vpnbridge_x64.exe.
+        ///   Looks up a localized string similar to C:\\Program Files\\VPN_Tools\\vpnbridge.exe.
         /// </summary>
         internal static string vpnbridge_exe {
             get {
@@ -169,7 +169,7 @@ namespace ToolsVPN.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to C:\\Program Files\\VPN_Tools\\vpncmd_x64.exe.
+        ///   Looks up a localized string similar to C:\\Program Files\\VPN_Tools\\vpncmd.exe.
         /// </summary>
         internal static string vpncmd_exe {
             get {

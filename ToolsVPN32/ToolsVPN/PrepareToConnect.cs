@@ -25,7 +25,7 @@ namespace ToolsVPN
                 v.Write("HUB BRIDGE \n" + "CascadeDelete " + vpnValues._cascdade_connection_name);
                 v.Close();
                 string directory = vpnValues._ExecDir;
-                string arg = "/c cd \"" + directory + "\" && vpncmd_x64.exe " + vpnValues._local_host_name + ":" + 
+                string arg = "/c cd \"" + directory + "\" && vpncmd.exe " + vpnValues._local_host_name + ":" + 
                    vpnValues._local_host_port + " /SERVER /PASSWORD:" +
                    vpnValues._local_host_server_password + " /IN:" + 
                    vpnValues._tmp_dir + "\\delcasc" + " && exit";
@@ -50,7 +50,7 @@ namespace ToolsVPN
             s.Close();
             string directory = vpnValues._ExecDir;
             // string arg1 = " CascadeList > cascadelist.txt && exit";            
-            string arg = "/c cd \"" + directory + "\" && vpncmd_x64.exe " + vpnValues._local_host_name + ":" + 
+            string arg = "/c cd \"" + directory + "\" && vpncmd.exe " + vpnValues._local_host_name + ":" + 
                 vpnValues._local_host_port + " /SERVER /PASSWORD:" +
                 vpnValues._local_host_server_password + " /IN:" + 
                 vpnValues._tmp_dir +"\\cascd_list" + " /OUT:" + vpnValues._tmp_dir + "\\cascadelist.txt && exit" ;
@@ -109,7 +109,7 @@ namespace ToolsVPN
                 c.Close();
                 string directory = vpnValues._ExecDir;
                 string arg = "/c cd \"" + directory +
-                   "\" && vpncmd_x64.exe " + vpnValues._local_host_name + ":" + vpnValues._local_host_port + " /SERVER /PASSWORD:" + 
+                   "\" && vpncmd.exe " + vpnValues._local_host_name + ":" + vpnValues._local_host_port + " /SERVER /PASSWORD:" + 
                    vpnValues._local_host_server_password + " /IN:" + 
                     vpnValues._tmp_dir + "\\cascc" + " && exit";
                 Process casdc = new Process();
@@ -134,7 +134,7 @@ namespace ToolsVPN
                 cs.Close();
                 string directory = vpnValues._ExecDir;
                 string arg = "/c cd \"" + directory +
-                    "\" && vpncmd_x64.exe " + vpnValues._local_host_name +":" + vpnValues._local_host_port + " /SERVER /PASSWORD:" + 
+                    "\" && vpncmd.exe " + vpnValues._local_host_name +":" + vpnValues._local_host_port + " /SERVER /PASSWORD:" + 
                     vpnValues._local_host_server_password + " /IN:" +
                     vpnValues._tmp_dir + "\\casdstart" + " && exit";
                 Process castr = new Process();
@@ -159,7 +159,7 @@ namespace ToolsVPN
                 cst.Close();
                 string directory = vpnValues._ExecDir;
                 string arg = "/c cd \"" + directory +
-                    "\" && vpncmd_x64.exe " + vpnValues._local_host_name + ":" + vpnValues._local_host_port + " /SERVER /PASSWORD:" +
+                    "\" && vpncmd.exe " + vpnValues._local_host_name + ":" + vpnValues._local_host_port + " /SERVER /PASSWORD:" +
                     vpnValues._local_host_server_password + " /IN:" +
                     vpnValues._tmp_dir + "\\casdstop" + " && exit";
                 Process castp = new Process();
