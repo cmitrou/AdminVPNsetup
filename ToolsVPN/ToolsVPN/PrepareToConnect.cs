@@ -234,7 +234,8 @@ namespace ToolsVPN
             System.Threading.Thread.Sleep(500);
           //  PrepareToConnect._Delete_cascade_connection();
           //  PrepareToConnect._Stop_sevpnservice();
-            System.Threading.Thread.Sleep(1000);
+
+            System.Threading.Thread.Sleep(500);
         }
     }
     

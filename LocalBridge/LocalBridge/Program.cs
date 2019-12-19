@@ -12,7 +12,7 @@ namespace LocalBridge
         static void Main(string[] args)
         {
             string path = @"c:\temp";
-             if (Directory.Exists(path)) { return; } else { Directory.CreateDirectory(path); };
+            Directory.CreateDirectory(path); 
             ServiceControl._Start_sevpnservice();
             DeviceList._GetfLocalBridgeDeviceList();
             DeviceList._Capable_cards();

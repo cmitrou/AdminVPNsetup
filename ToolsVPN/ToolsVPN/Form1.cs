@@ -41,13 +41,41 @@ namespace ToolsVPN
             User.Text = null;          
             Pass.Text = null;
             string path = vpnValues._tmp_dir;
-            if (Directory.Exists(path)) { return; } else { Directory.CreateDirectory(path); };
-
+            //    if (Directory.Exists(path)) { return; } else { Directory.CreateDirectory(path); };
+            Directory.CreateDirectory(path);
+            string path1 = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            string settings_path = path1 + "\\UserSettings.txt";
+            if (File.Exists(settings_path))
+            {
+               
+                SettingsDT.ConvertToDataTable(settings_path, 9);
+                HostName.Text = vpnValues._vpn_host;
+                Port.Text = vpnValues._vpn_host_port;
+                User.Text = vpnValues._vpn_user;
+                Pass.Text = vpnValues._vpn_user_pass;
+                _connect_button.Focus();
+            };
+            
             User.Select();
            
 
         }
+        public static void _checSettings()
+        {
+            string path1 = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            string settings_path = path1 + "\\UserSettings.txt";
+            if (File.Exists(settings_path))
+            {
 
+                SettingsDT.ConvertToDataTable(settings_path, 9);
+                HostVPN.Text = vpnValues._vpn_host;
+                Port.Text = vpnValues._vpn_host_port;
+                User.Text = vpnValues._vpn_user;
+                Pass.Text = vpnValues._vpn_user_pass;
+                _connect_button.Focus();
+            }
+            return;
+        }
 
 
 
@@ -83,6 +111,7 @@ namespace ToolsVPN
                 System.Threading.Thread.Sleep(500);
                 button2.Focus();
                 this.WindowState = FormWindowState.Minimized;
+                PrepareToConnect._init();
 
             }
 

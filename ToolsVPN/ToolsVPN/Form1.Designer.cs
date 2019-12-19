@@ -136,6 +136,7 @@ namespace ToolsVPN
             this.HostName.Name = "HostName";
             this.HostName.Size = new System.Drawing.Size(145, 20);
             this.HostName.TabIndex = 5;
+            this.HostName.Tag = "HostVPN";
             this.HostName.TextChanged += new System.EventHandler(this.HostName_TextChanged);
             // 
             // _connect_button

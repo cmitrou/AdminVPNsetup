@@ -1,0 +1,5 @@
+VPNServer:192.168.97.112
+VPNPort:5555
+VPNHub:RMT
+UserName:user1
+Password:pirkon12
