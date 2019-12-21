@@ -34,7 +34,7 @@ namespace LocalBridge
             //  Console.WriteLine("Check if Service Running:       " + "  " + ctl.BridgeServiceCondition);
             //  Console.ReadKey();
             string directory = "c:\\Program Files\\VPN_Tools";
-            string arg = "/c cd \"" + directory + "\" && vpncmd_x64.exe localhost:5555 /SERVER /PASSWORD:pirkon12 /CMD BridgeDeviceList > c:\\temp\\BridgeDeviceList.txt && exit";
+            string arg = "/c cd \"" + directory + "\" && "+ Variables.vpncmd + " localhost:5555 /SERVER /PASSWORD:pirkon12 /CMD BridgeDeviceList > c:\\temp\\BridgeDeviceList.txt && exit";
             Process GlbDL = new Process();
             GlbDL.StartInfo.FileName = "cmd.exe";
             GlbDL.StartInfo.Arguments = arg;
@@ -122,7 +122,7 @@ namespace LocalBridge
         {
             if (File.Exists("c:\\temp\\BridgeList.txt")) { File.Delete("c:\\temp\\BridgeList.txt"); };
             string directory = "c:\\Program Files\\VPN_Tools";
-            string arg = "/c cd \"" + directory + "\" && vpncmd_x64.exe localhost:5555 /SERVER /PASSWORD:pirkon12 /CMD BridgeList > c:\\temp\\BridgeList.txt && exit";
+            string arg = "/c cd \"" + directory + "\" && " + Variables.vpncmd + " localhost:5555 /SERVER /PASSWORD:pirkon12 /CMD BridgeList > c:\\temp\\BridgeList.txt && exit";
             Process GlbDL = new Process();
             GlbDL.StartInfo.FileName = "cmd.exe";
             GlbDL.StartInfo.Arguments = arg;

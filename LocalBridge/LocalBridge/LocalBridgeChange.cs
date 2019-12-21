@@ -29,6 +29,7 @@ namespace LocalBridge
                     Console.WriteLine(" " + qwe[o].ToString());
                     Console.WriteLine();
                     Hub_name = qwe[o].ToString();
+
                 }
                 Console.WriteLine();
                 Console.WriteLine("List of Capable Network Cards Available for Local Bridge Interface");
@@ -61,7 +62,7 @@ namespace LocalBridge
                     Console.WriteLine(".  " + crd_choosen);
                     CardTables._bridge_net_card_name = crd_choosen;
                     string directory = "c:\\Program Files\\VPN_Tools";
-                    string arg = "/c cd \"" + directory + "\" && vpncmd_x64.exe localhost:5555 /SERVER /PASSWORD:pirkon12 /CMD BridgeCreate BRIDGE /DEVICE:";
+                    string arg = "/c cd \"" + directory + "\" && " + Variables.vpncmd + " localhost:5555 /SERVER /PASSWORD:pirkon12 /CMD BridgeCreate BRIDGE /DEVICE:";
                     arg += crd_choosen;
                     CardTables._arg_strg = arg;
                     LocalBridgeSetup.Lbds();

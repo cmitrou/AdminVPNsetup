@@ -47,15 +47,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CardTables.cs" />
+    <Compile Include="Check3264.cs" />
     <Compile Include="DeviceList.cs" />
     <Compile Include="LocalBridgeChange.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceControl.cs" />
+    <Compile Include="Variables.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="app.manifest" />
+    <None Include="app.manifest">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
