@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+// Os Check if 32bit or 64bit
 namespace CleanUP_setup
 {
     class OsCheck
