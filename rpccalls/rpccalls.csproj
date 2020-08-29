@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="vpnserver-jsonrpc-client-csharp">
+      <HintPath>..\..\developer_tools\vpnserver-jsonrpc-clients\vpnserver-jsonrpc-client-csharp\bin\Release\netcoreapp2.1\vpnserver-jsonrpc-client-csharp.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

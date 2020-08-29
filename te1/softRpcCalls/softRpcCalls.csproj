@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="vpnserver-jsonrpc-client-csharp">
+      <HintPath>..\..\..\developer_tools\vpnserver-jsonrpc-clients\vpnserver-jsonrpc-client-csharp\bin\Release\netstandard2\vpnserver-jsonrpc-client-csharp.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
