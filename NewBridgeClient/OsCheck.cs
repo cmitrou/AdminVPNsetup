@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NewBridgeClient
+﻿namespace NewBridgeClient
 {
-    class OsCheck
+    internal class OsCheck
     {
         public static void _setEnv()
         {

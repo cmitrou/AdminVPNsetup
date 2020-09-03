@@ -165,6 +165,8 @@
             this.ProfileNameBox.Size = new System.Drawing.Size(110, 21);
             this.ProfileNameBox.TabIndex = 1;
             this.ProfileNameBox.SelectedIndexChanged += new System.EventHandler(this.ProfileNameBox_SelectedIndexChanged);
+            this.ProfileNameBox.SelectionChangeCommitted += new System.EventHandler(this.ProfileNameBox_SelectedIndexChanged);
+            this.ProfileNameBox.SelectedValueChanged += new System.EventHandler(this.ProfileNameBox_SelectedIndexChanged);
             this.ProfileNameBox.Click += new System.EventHandler(this.ProfileNameBox_Enter);
             this.ProfileNameBox.Enter += new System.EventHandler(this.ProfileNameBox_Enter);
             // 
@@ -267,7 +269,7 @@
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(38, 13);
             this.label6.TabIndex = 15;
-            this.label6.Text = "V1.5.0";
+            this.label6.Text = "V1.6.0";
             // 
             // label7
             // 

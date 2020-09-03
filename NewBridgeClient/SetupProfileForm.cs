@@ -69,7 +69,6 @@ namespace NewBridgeClient
             ServerPortBox.Text = "";
             ServerHubBox.Text = "";
             UserLoginNameBox.Text = "";
-
         }
 
         private void FillprofileData()

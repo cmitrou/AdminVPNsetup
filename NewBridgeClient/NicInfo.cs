@@ -1,5 +1,7 @@
 ﻿using SoftEtherApi;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Management;
 using System.Net.NetworkInformation;
 using System.Text.RegularExpressions;
@@ -80,7 +82,7 @@ namespace NewBridgeClient
         public static void _setLocalBridgeStatic()
         {
             string arg = "interface ip set address name=" + "\"" + Data._bridgeWindowsname + "\"" + " " + "static" + " "
-                  + Data._localbridgevpnip + " " + Data._localbridgevpnmask + " "; // + Data._localbridgeGW + " " + " 1 "; // no need getway
+                  + Data._localbridgevpnip + " " + Data._localbridgevpnmask + " " + "" + "1"; // + Data._localbridgeGW + " " + " 1 "; // no need getway
             var _p1 = new Process
             {
                 StartInfo = new ProcessStartInfo
@@ -92,6 +94,7 @@ namespace NewBridgeClient
                     UseShellExecute = false
                 }
             };
+            return;
         }
 
         public static void _startwithDhcpON()
@@ -150,9 +153,12 @@ namespace NewBridgeClient
             string input = Data._lcl_bridge;
             string result1;
             string result2 = rgx.Replace(input, repl).Trim();
-            if (result2.Contains("|Operating")) { string result1a = result2.Replace("|Operating", "").Replace(" ", " ").Trim();
+            if (result2.Contains("|Operating"))
+            {
+                string result1a = result2.Replace("|Operating", "").Replace(" ", " ").Trim();
                 result1 = result1a;
-            } else { result1 = result2; }
+            }
+            else { result1 = result2; }
 
             var ip = "127.0.0.1";
             ushort port = 5555;
@@ -177,6 +183,121 @@ namespace NewBridgeClient
                 }
                 return;
             }
+        }
+
+        public static bool SetIpAddress(
+        string nicName,
+        string ipAddress,
+        string subnetMask,
+        string gateway = null,
+        string dns1 = null,
+        string dns2 = null)
+        {
+            ManagementClass mc = new ManagementClass("Win32_NetworkAdapterConfiguration");
+            ManagementObjectCollection moc = mc.GetInstances();
+
+            NetworkInterface[] interfaces = NetworkInterface.GetAllNetworkInterfaces();
+            NetworkInterface networkInterface = interfaces.FirstOrDefault(x => x.Name == nicName);
+            string nicDesc = nicName;
+
+            if (networkInterface != null)
+            {
+                nicDesc = networkInterface.Description;
+            }
+
+            foreach (ManagementObject mo in moc)
+            {
+                if ((bool)mo["IPEnabled"] == true
+                    && mo["Description"].Equals(nicDesc) == true)
+                {
+                    try
+                    {
+                        ManagementBaseObject newIP = mo.GetMethodParameters("EnableStatic");
+
+                        newIP["IPAddress"] = new string[] { ipAddress };
+                        newIP["SubnetMask"] = new string[] { subnetMask };
+
+                        ManagementBaseObject setIP = mo.InvokeMethod("EnableStatic", newIP, null);
+
+                        if (gateway != null)
+                        {
+                            ManagementBaseObject newGateway = mo.GetMethodParameters("SetGateways");
+
+                            newGateway["DefaultIPGateway"] = new string[] { gateway };
+                            newGateway["GatewayCostMetric"] = new int[] { 1 };
+
+                            ManagementBaseObject setGateway = mo.InvokeMethod("SetGateways", newGateway, null);
+                        }
+
+                        if (dns1 != null || dns2 != null)
+                        {
+                            ManagementBaseObject newDns = mo.GetMethodParameters("SetDNSServerSearchOrder");
+                            var dns = new List<string>();
+
+                            if (dns1 != null)
+                            {
+                                dns.Add(dns1);
+                            }
+
+                            if (dns2 != null)
+                            {
+                                dns.Add(dns2);
+                            }
+
+                            newDns["DNSServerSearchOrder"] = dns.ToArray();
+
+                            ManagementBaseObject setDNS = mo.InvokeMethod("SetDNSServerSearchOrder", newDns, null);
+                        }
+                    }
+                    catch
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Sets the DHCP.
+        /// </summary>
+        /// <param name="nicName">Name of the nic.</param>
+        public static bool SetDHCP(string nicName)
+        {
+            ManagementClass mc = new ManagementClass("Win32_NetworkAdapterConfiguration");
+            ManagementObjectCollection moc = mc.GetInstances();
+
+            NetworkInterface[] interfaces = NetworkInterface.GetAllNetworkInterfaces();
+            NetworkInterface networkInterface = interfaces.FirstOrDefault(x => x.Name == nicName);
+            string nicDesc = nicName;
+
+            if (networkInterface != null)
+            {
+                nicDesc = networkInterface.Description;
+            }
+
+            foreach (ManagementObject mo in moc)
+            {
+                if ((bool)mo["IPEnabled"] == true
+                    && mo["Description"].Equals(nicDesc) == true)
+                {
+                    try
+                    {
+                        ManagementBaseObject newDNS = mo.GetMethodParameters("SetDNSServerSearchOrder");
+
+                        newDNS["DNSServerSearchOrder"] = null;
+                        ManagementBaseObject enableDHCP = mo.InvokeMethod("EnableDHCP", null, null);
+                        ManagementBaseObject setDNS = mo.InvokeMethod("SetDNSServerSearchOrder", newDNS, null);
+                    }
+                    catch
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
         }
     }
 }

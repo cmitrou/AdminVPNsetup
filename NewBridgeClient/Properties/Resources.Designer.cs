@@ -59,5 +59,15 @@ namespace NewBridgeClient.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] VPNBridgeApi {
+            get {
+                object obj = ResourceManager.GetObject("VPNBridgeApi", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

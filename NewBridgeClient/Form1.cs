@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
+using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -11,6 +12,19 @@ namespace NewBridgeClient
     {
         public Form1()
         {
+            AppDomain.CurrentDomain.AssemblyResolve += (sender, args) =>
+            {
+                string resourceName = new AssemblyName(args.Name).Name + ".dll";
+                string resource = Array.Find(this.GetType().Assembly.GetManifestResourceNames(), element => element.EndsWith(resourceName));
+
+                using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resource))
+                {
+                    Byte[] assemblyData = new Byte[stream.Length];
+                    stream.Read(assemblyData, 0, assemblyData.Length);
+                    return Assembly.Load(assemblyData);
+                }
+            };
+
             InitializeComponent();
             Data.AppRunDir = "C:\\Program Files\\BridgeClient\\"; //AppDomain.CurrentDomain.BaseDirectory;
             InitBridge();
@@ -73,6 +87,9 @@ namespace NewBridgeClient
                 LocalBridgeForm Lpf = new LocalBridgeForm();
                 Lpf.Show();
             }
+            Data._localbridgevpnmask = "255.255.255.0";
+            NicInfo._brdgeNicName();
+            NetworkConnection.Text = Data._bridgeWindowsname;
 
             return;
         }
@@ -103,7 +120,6 @@ namespace NewBridgeClient
             }
         }
 
- 
         private void setupProgileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Data._mode = "Setup";
@@ -137,13 +153,22 @@ namespace NewBridgeClient
                 if ((CheckRemoteServer.PingHost(_s1, _srvp)))
                 {
                     textBox1.BackColor = Color.Green;
-                    return;
+                    
                 }
                 else
                 {
                     textBox1.BackColor = Color.Red;
                 }
             }
+            if (UserNameBox.Text.EndsWith("D"))
+            {
+                inter_ip.Enabled = true;
+            }
+            else
+            {
+                inter_ip.Enabled = false;
+            }
+            return;
             // Data.ServerName = Data.selectedProfileData[0];
         }
 
@@ -188,34 +213,61 @@ namespace NewBridgeClient
 
         private void Form1_Load(object sender, EventArgs e)
         {
-           
-           // OsCheck._setEnv(); Moved to Program
+            // OsCheck._setEnv(); Moved to Program
+            inter_ip.Enabled = false;
         }
 
         private void ConnectButton_Click(object sender, EventArgs e)
         {
             Data._localbridgevpnmask = "255.255.255.0";
-            if (inter_ip.Text != null)
+            NicInfo._brdgeNicName();
+            NetworkConnection.Text = Data._bridgeWindowsname;
+            if (UserNameBox.Text.EndsWith("D"))
             {
-                NicInfo._brdgeNicName();
-                NetworkConnection.Text = Data._bridgeWindowsname;
-                if (Data.netnamefound)
-                {
-                    NetworkConnection.Text = Data._bridgeWindowsname;
-                    Data._localbridgevpnip = inter_ip.Text;
-                    NicInfo._startwithDhcpON();
-                    NicInfo._setLocalBridgeAdditionalIP();
-                }
-                else
-                {
-                    MessageBox.Show("This network  card is not supported at the moment." + "\n" +
-                                    "Please enter IP & Subnet Manualy after connection!" + "\n" +
-                                    "   " + inter_ip.Text + "  " + Data._localbridgevpnmask);
-                }
+                Data.DhcpMode = true;
+                MessageBox.Show("You are in DHCP mode. Please make sure to give a" + "\n" + "free IP of your network to remote connecting party");
+                inter_ip.Enabled = true;
             }
+            else
+            {
+                inter_ip.Enabled = false;
+            }
+            //if (inter_ip.Text != null)
+            //{
+            //    NicInfo._brdgeNicName();
+            //    NetworkConnection.Text = Data._bridgeWindowsname;
+            //    if (Data.netnamefound)
+            //    {
+            //        NetworkConnection.Text = Data._bridgeWindowsname;
+            //        if (inter_ip.Text.Contains("169.254"))
+            //        { Data._localbridgevpnmask = "255.255.0.0"; }
+            //        else
+            //        { Data._localbridgevpnmask = "255.255.255.0"; }
+            //        Data._localbridgevpnip = inter_ip.Text;
+            //        //     NicInfo._startwithDhcpON();
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("This network  card is not supported at the moment." + "\n" +
+            //                        "Please enter IP & Subnet Manualy after connection!" + "\n" +
+            //                        "   " + inter_ip.Text + "  " + Data._localbridgevpnmask);
+            //    }
+            //    if (UserNameBox.Text.EndsWith("D"))
+            //    {
+            //        Data.DhcpMode = true;
+            //        MessageBox.Show("You are in DHCP mode. Please make sure to give a" + "\n" + "free IP of your network to remote connecting party");
+            //    }
+                //if (Data.DhcpMode)
+                //{
+                //    Protocols._cmd_disable_all();
+                //    Protocols._cmd_enable_vpn();
+                //}
+         //  }
             _cmd _cc1 = new _cmd();
             _cc1.Execmd("localhost:5555", "server", "CascadeOnline ", Data.SettingName, " /AdminHub:Bridge /Password:pirkon12"); ;
             Thread.Sleep(2000);
+            NicInfo.SetIpAddress(Data._bridgeWindowsname, Data._localbridgevpnip, Data._localbridgevpnmask);
+            // NicInfo._setLocalBridgeStatic();
             _cascadeStatus();
             if (Data._cscdC)
             {
@@ -252,8 +304,13 @@ namespace NewBridgeClient
                 ConnectButoon.Enabled = true;
                 DisconnectButton.Enabled = false;
                 menuToolStripMenuItem.Enabled = true;
+                //   Protocols._cmd_enable_all();
+                NicInfo.SetDHCP(Data._bridgeWindowsname);
+                //  NicInfo._startwithDhcpON();
 
-                NicInfo._startwithDhcpON();
+                Thread.Sleep(3000);
+                MessageBox.Show("The program is closing. Thanks for using it");
+                System.Environment.Exit(0);
             }
             else
             {
