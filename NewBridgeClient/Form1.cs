@@ -32,7 +32,7 @@ namespace NewBridgeClient
             cascadelist();
         }
 
-        private void cascadelist()
+        private void cascadelist()       
         {
             DataTable fr = GetCascadeList._getcascadelist();
             dataSet1.Tables.Add(fr);
@@ -87,9 +87,7 @@ namespace NewBridgeClient
                 LocalBridgeForm Lpf = new LocalBridgeForm();
                 Lpf.Show();
             }
-            Data._localbridgevpnmask = "255.255.255.0";
-            NicInfo._brdgeNicName();
-            NetworkConnection.Text = Data._bridgeWindowsname;
+
 
             return;
         }
@@ -111,7 +109,7 @@ namespace NewBridgeClient
             if (Data.bridgelist.Count > 1)
             {
                 Data.bridgeExists = true;
-
+                NetworkConnection.Text = Data._bridgeWindowsname;
                 return;
             }
             else
@@ -162,10 +160,13 @@ namespace NewBridgeClient
             }
             if (UserNameBox.Text.EndsWith("D"))
             {
+                NicInfo._brdgeNicName();
                 inter_ip.Enabled = true;
+                NetworkConnection.Text = Data._bridgeWindowsname;
             }
             else
             {
+                NetworkConnection.Text = Data._bridgeWindowsname;
                 inter_ip.Enabled = false;
             }
             return;
@@ -265,8 +266,10 @@ namespace NewBridgeClient
          //  }
             _cmd _cc1 = new _cmd();
             _cc1.Execmd("localhost:5555", "server", "CascadeOnline ", Data.SettingName, " /AdminHub:Bridge /Password:pirkon12"); ;
-            Thread.Sleep(2000);
+            Thread.Sleep(1000);
+            Data._localbridgevpnip = inter_ip.Text;
             NicInfo.SetIpAddress(Data._bridgeWindowsname, Data._localbridgevpnip, Data._localbridgevpnmask);
+            Thread.Sleep(1000);
             // NicInfo._setLocalBridgeStatic();
             _cascadeStatus();
             if (Data._cscdC)

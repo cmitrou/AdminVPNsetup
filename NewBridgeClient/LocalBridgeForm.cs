@@ -40,6 +40,9 @@ namespace NewBridgeClient
 
         private void button1_Click(object sender, EventArgs e)
         {
+            Data._localbridgevpnmask = "255.255.255.0";
+            
+            
             Dispose();
         }
 
