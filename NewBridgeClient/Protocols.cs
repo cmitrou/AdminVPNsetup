@@ -1,4 +1,6 @@
 ﻿using System.Management.Automation;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace NewBridgeClient
 {
@@ -9,11 +11,12 @@ namespace NewBridgeClient
             // NicInfo._brdgeNicName();
             using (PowerShell _psc = PowerShell.Create())
             {
-                _psc.AddScript("param($param1) $d = Disable-NetAdapterBinding -Name " + "\"" + Data._bridgeWindowsname + "\"" + " -AllBindings");
+                _psc.AddScript("param($param1) $d = Disable-NetAdapterBinding -Name " + "\"" + Data._bridgeWindowsname + "\"" + " -AllBindings" + " -AsJob");
                 _psc.AddParameter("param1");
                 _psc.Invoke();
             }
-            return;
+          //  Thread.Sleep(5000);
+           //  return;
         }
 
         public static void _cmd_enable_all()
@@ -21,11 +24,11 @@ namespace NewBridgeClient
             // NicInfo._brdgeNicName();
             using (PowerShell _psc = PowerShell.Create())
             {
-                _psc.AddScript("param($param1) $d = Enable-NetAdapterBinding -Name " + "\"" + Data._bridgeWindowsname + "\"" + " -AllBindings");
+                _psc.AddScript("param($param1) $d = Enable-NetAdapterBinding -Name " + "\"" + Data._bridgeWindowsname + "\"" + " -AllBindings" + " -AsJob");
                 _psc.AddParameter("param1");
                 _psc.Invoke();
             }
-            return;
+          //  return;
         }
 
         public static void _cmd_enable_vpn()
@@ -38,24 +41,26 @@ namespace NewBridgeClient
                 _psc.AddParameter("param1");
                 _psc.Invoke();
             }
-            return;
+          //  return;
         }
 
         public static void _cmd_enable_bindings()
         {
+            int v;
             using (PowerShell _psc = PowerShell.Create())
             {
                 _psc.AddScript("param($param1) $d = Enable-NetAdapterBinding -Name Ethernet* -Allbindings");
                 _psc.AddParameter("param1");
                 _psc.Invoke();
             }
+            Thread.Sleep(5000);
             using (PowerShell _psc = PowerShell.Create())
             {
                 _psc.AddScript("param($param1) $d = Disable-NetAdapterBinding -Name Ethernet* -ComponentID ms_tcpip6");
                 _psc.AddParameter("param1");
                 _psc.Invoke();
             }
-            return;
+            
         }
     }
 }

@@ -165,8 +165,6 @@
             this.ProfileNameBox.Size = new System.Drawing.Size(110, 21);
             this.ProfileNameBox.TabIndex = 1;
             this.ProfileNameBox.SelectedIndexChanged += new System.EventHandler(this.ProfileNameBox_SelectedIndexChanged);
-            this.ProfileNameBox.SelectionChangeCommitted += new System.EventHandler(this.ProfileNameBox_SelectedIndexChanged);
-            this.ProfileNameBox.SelectedValueChanged += new System.EventHandler(this.ProfileNameBox_SelectedIndexChanged);
             this.ProfileNameBox.Click += new System.EventHandler(this.ProfileNameBox_Enter);
             this.ProfileNameBox.Enter += new System.EventHandler(this.ProfileNameBox_Enter);
             // 

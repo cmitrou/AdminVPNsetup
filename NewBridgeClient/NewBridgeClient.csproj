@@ -52,7 +52,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>VPNSvr.ico</ApplicationIcon>
+    <ApplicationIcon>vpn1_g26_icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject />
@@ -173,6 +173,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="includedLibs\VPNBridgeApi.dll" />
+    <Content Include="vpn1_g26_icon.ico" />
     <Content Include="VPNSvr.ico" />
   </ItemGroup>
   <ItemGroup>

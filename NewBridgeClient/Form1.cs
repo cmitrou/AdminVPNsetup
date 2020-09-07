@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
+using System.Management.Automation;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
@@ -53,15 +54,19 @@ namespace NewBridgeClient
                 if (ccs.Rows[i]["Setting Name"].ToString().Contains(Data.SettingName))
                 {
                     Data._cascadeStatus.Add(ccs.Rows[i]["Status"].ToString());
+
                 }
             }
-            if (Data._cascadeStatus[0].Contains("Online (Established)"))
+            for (int d = 0; d <= Data._cascadeStatus.Count - 1; d++)
             {
-                Data._cscdC = true;
-            }
-            else
-            {
-                Data._cscdC = false;
+                if (Data._cascadeStatus[d].Contains("Online (Established)"))
+                {
+                    Data._cscdC = true;
+                }
+                else
+                {
+                    Data._cscdC = false;
+                }
             }
         }
 
@@ -139,6 +144,7 @@ namespace NewBridgeClient
             Data.selectedProfileData.Add(_cg.Rows[4][1].ToString());
             Data.selectedProfileData.Add(_cg.Rows[9][1].ToString());
             UserNameBox.Text = Data.selectedProfileData[3];
+            Data.user = Data.selectedProfileData[3];
             ServerNameBox.Text = Data.selectedProfileData[0];
             string _srv = Data.selectedProfileData[0];
             if (_srv.Contains("/tcp"))
@@ -158,18 +164,23 @@ namespace NewBridgeClient
                     textBox1.BackColor = Color.Red;
                 }
             }
-            if (UserNameBox.Text.EndsWith("D"))
+            if (Data.user.EndsWith("D"))
             {
                 NicInfo._brdgeNicName();
                 inter_ip.Enabled = true;
                 NetworkConnection.Text = Data._bridgeWindowsname;
+                
+
             }
             else
             {
                 NetworkConnection.Text = Data._bridgeWindowsname;
-                inter_ip.Enabled = false;
+                inter_ip.Enabled = true;
+
             }
-            return;
+         //   Protocols._cmd_disable_all();
+         //   Protocols._cmd_enable_vpn();
+           // return;
             // Data.ServerName = Data.selectedProfileData[0];
         }
 
@@ -215,7 +226,7 @@ namespace NewBridgeClient
         private void Form1_Load(object sender, EventArgs e)
         {
             // OsCheck._setEnv(); Moved to Program
-            inter_ip.Enabled = false;
+           // inter_ip.Enabled = false;
         }
 
         private void ConnectButton_Click(object sender, EventArgs e)
@@ -231,7 +242,8 @@ namespace NewBridgeClient
             }
             else
             {
-                inter_ip.Enabled = false;
+                Data._localbridgevpnmask = "255.255.0.0";
+                inter_ip.Enabled = true;
             }
             //if (inter_ip.Text != null)
             //{
@@ -268,7 +280,15 @@ namespace NewBridgeClient
             _cc1.Execmd("localhost:5555", "server", "CascadeOnline ", Data.SettingName, " /AdminHub:Bridge /Password:pirkon12"); ;
             Thread.Sleep(1000);
             Data._localbridgevpnip = inter_ip.Text;
-            NicInfo.SetIpAddress(Data._bridgeWindowsname, Data._localbridgevpnip, Data._localbridgevpnmask);
+            if(String.IsNullOrEmpty(Data._localbridgevpnip))
+            {
+                NicInfo.SetDHCP(Data._bridgeWindowsname);
+            }
+            else
+            {
+                NicInfo.SetIpAddress(Data._bridgeWindowsname, Data._localbridgevpnip, Data._localbridgevpnmask);
+            }
+           // NicInfo.SetIpAddress(Data._bridgeWindowsname, Data._localbridgevpnip, Data._localbridgevpnmask);
             Thread.Sleep(1000);
             // NicInfo._setLocalBridgeStatic();
             _cascadeStatus();
@@ -293,7 +313,7 @@ namespace NewBridgeClient
 
         private void DisconnectButton_Click(object sender, EventArgs e)
         {
-            //   Protocols._cmd_enable_all();
+            
             if (Data.SettingName == null) { MessageBox.Show("I am not connected anywhere! R u Blind?"); return; };
             _cmd _cD = new _cmd();
             _cD.Execmd("localhost:5555", "server", " CascadeOffline ", Data.SettingName, " /AdminHub:Bridge /Password:pirkon12");
@@ -307,6 +327,7 @@ namespace NewBridgeClient
                 ConnectButoon.Enabled = true;
                 DisconnectButton.Enabled = false;
                 menuToolStripMenuItem.Enabled = true;
+                //  Protocols._cmd_enable_bindings();
                 //   Protocols._cmd_enable_all();
                 NicInfo.SetDHCP(Data._bridgeWindowsname);
                 //  NicInfo._startwithDhcpON();

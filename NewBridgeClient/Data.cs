@@ -36,5 +36,6 @@ namespace NewBridgeClient
         public static string _localbridgevpnmask { get; set; }
         public static bool netnamefound { get; set; }
         public static bool DhcpMode { get; set; }
+        public static string user { get; set; }
     }
 }
