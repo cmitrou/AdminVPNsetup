@@ -167,9 +167,10 @@ namespace NewBridgeClient
             if (Data.user.EndsWith("D"))
             {
                 NicInfo._brdgeNicName();
-                inter_ip.Enabled = true;
+                inter_ip.Enabled = false;
                 NetworkConnection.Text = Data._bridgeWindowsname;
-                
+                Protocols._cmd_disable_all();
+                Protocols._cmd_enable_vpn();
 
             }
             else
@@ -178,8 +179,7 @@ namespace NewBridgeClient
                 inter_ip.Enabled = true;
 
             }
-         //   Protocols._cmd_disable_all();
-         //   Protocols._cmd_enable_vpn();
+
            // return;
             // Data.ServerName = Data.selectedProfileData[0];
         }
@@ -234,11 +234,11 @@ namespace NewBridgeClient
             Data._localbridgevpnmask = "255.255.255.0";
             NicInfo._brdgeNicName();
             NetworkConnection.Text = Data._bridgeWindowsname;
-            if (UserNameBox.Text.EndsWith("D"))
+            if (Data.user.EndsWith("D"))
             {
                 Data.DhcpMode = true;
                 MessageBox.Show("You are in DHCP mode. Please make sure to give a" + "\n" + "free IP of your network to remote connecting party");
-                inter_ip.Enabled = true;
+                inter_ip.Enabled = false;
             }
             else
             {
@@ -327,12 +327,12 @@ namespace NewBridgeClient
                 ConnectButoon.Enabled = true;
                 DisconnectButton.Enabled = false;
                 menuToolStripMenuItem.Enabled = true;
-                //  Protocols._cmd_enable_bindings();
+                Protocols._cmd_enable_bindings();
                 //   Protocols._cmd_enable_all();
                 NicInfo.SetDHCP(Data._bridgeWindowsname);
                 //  NicInfo._startwithDhcpON();
 
-                Thread.Sleep(3000);
+                Thread.Sleep(2000);
                 MessageBox.Show("The program is closing. Thanks for using it");
                 System.Environment.Exit(0);
             }

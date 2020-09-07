@@ -15,7 +15,7 @@ namespace NewBridgeClient
                 _psc.AddParameter("param1");
                 _psc.Invoke();
             }
-          //  Thread.Sleep(5000);
+            Thread.Sleep(5000);
            //  return;
         }
 

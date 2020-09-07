@@ -39,7 +39,6 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
-            this.sevpnbridge = new System.ServiceProcess.ServiceController();
             this.dataSet1 = new System.Data.DataSet();
             this.ProfileNameBox = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -58,6 +57,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.NetworkConnection = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.sevpnbridge = new System.ServiceProcess.ServiceController();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -147,10 +147,6 @@
             this.toolStripTextBox1.ReadOnly = true;
             this.toolStripTextBox1.Size = new System.Drawing.Size(160, 23);
             this.toolStripTextBox1.Text = "Bridge Client for VPN Server.";
-            // 
-            // sevpnbridge
-            // 
-            this.sevpnbridge.ServiceName = global::NewBridgeClient.Properties.Settings.Default.vpn_service;
             // 
             // dataSet1
             // 
@@ -267,7 +263,7 @@
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(38, 13);
             this.label6.TabIndex = 15;
-            this.label6.Text = "V1.6.0";
+            this.label6.Text = "V2.6.0";
             // 
             // label7
             // 
@@ -312,6 +308,10 @@
             this.label9.Size = new System.Drawing.Size(77, 13);
             this.label9.TabIndex = 20;
             this.label9.Text = "Network Conx.";
+            // 
+            // sevpnbridge
+            // 
+            this.sevpnbridge.ServiceName = global::NewBridgeClient.Properties.Settings.Default.vpn_service;
             // 
             // Form1
             // 
