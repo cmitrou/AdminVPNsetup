@@ -7,7 +7,7 @@
     <ProjectGuid>{EEABC093-A905-4D8E-8A21-D1A17822FD7E}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>NewBridgeClient</RootNamespace>
-    <AssemblyName>NewBridgeClient</AssemblyName>
+    <AssemblyName>BridgeClientFA</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -173,6 +173,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="includedLibs\VPNBridgeApi.dll" />
+    <None Include="automotive-electronics.png" />
     <Content Include="vpn1_g26_icon.ico" />
     <Content Include="VPNSvr.ico" />
   </ItemGroup>

@@ -1,6 +1,5 @@
 ﻿using System.Management.Automation;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace NewBridgeClient
 {
@@ -15,8 +14,8 @@ namespace NewBridgeClient
                 _psc.AddParameter("param1");
                 _psc.Invoke();
             }
-          //  Thread.Sleep(5000);
-           //  return;
+            //  Thread.Sleep(5000);
+            //  return;
         }
 
         public static void _cmd_enable_all()
@@ -28,7 +27,7 @@ namespace NewBridgeClient
                 _psc.AddParameter("param1");
                 _psc.Invoke();
             }
-          //  return;
+            //  return;
         }
 
         public static void _cmd_enable_vpn()
@@ -41,7 +40,7 @@ namespace NewBridgeClient
                 _psc.AddParameter("param1");
                 _psc.Invoke();
             }
-          //  return;
+            //  return;
         }
 
         public static void _cmd_enable_bindings()
@@ -60,7 +59,6 @@ namespace NewBridgeClient
                 _psc.AddParameter("param1");
                 _psc.Invoke();
             }
-            
         }
     }
 }

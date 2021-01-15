@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.devListBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.devListBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -49,16 +50,25 @@
             // 
             this.devListBindingSource.DataSource = typeof(rpcForm.Form1.DevList);
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(184, 221);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(269, 20);
+            this.textBox1.TabIndex = 1;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(616, 313);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.listBox1);
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.devListBindingSource)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -66,6 +76,7 @@
 
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.BindingSource devListBindingSource;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 

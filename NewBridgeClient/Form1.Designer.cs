@@ -58,6 +58,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.NetworkConnection = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -108,28 +109,28 @@
             // setupProfileToolStripMenuItem
             // 
             this.setupProfileToolStripMenuItem.Name = "setupProfileToolStripMenuItem";
-            this.setupProfileToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.setupProfileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.setupProfileToolStripMenuItem.Text = "Add Profile";
             this.setupProfileToolStripMenuItem.Click += new System.EventHandler(this.setupProgileToolStripMenuItem_Click);
             // 
             // editProfileToolStripMenuItem
             // 
             this.editProfileToolStripMenuItem.Name = "editProfileToolStripMenuItem";
-            this.editProfileToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.editProfileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.editProfileToolStripMenuItem.Text = "Edit Profile";
             this.editProfileToolStripMenuItem.Click += new System.EventHandler(this.editProfileToolStripMenuItem_Click);
             // 
             // deleteProfileToolStripMenuItem
             // 
             this.deleteProfileToolStripMenuItem.Name = "deleteProfileToolStripMenuItem";
-            this.deleteProfileToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.deleteProfileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.deleteProfileToolStripMenuItem.Text = "Delete Profile";
             this.deleteProfileToolStripMenuItem.Click += new System.EventHandler(this.deleteProfileToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             // 
             // aboutToolStripMenuItem
@@ -150,7 +151,7 @@
             // 
             // sevpnbridge
             // 
-            this.sevpnbridge.ServiceName = global::NewBridgeClient.Properties.Settings.Default.vpn_service;
+            this.sevpnbridge.ServiceName = "sevpnbridge";
             // 
             // dataSet1
             // 
@@ -252,7 +253,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Image = global::NewBridgeClient.Properties.Resources.automotive_electronics;
             this.pictureBox1.Location = new System.Drawing.Point(12, 27);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(463, 151);
@@ -265,18 +266,17 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(9, 345);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(38, 13);
+            this.label6.Size = new System.Drawing.Size(51, 13);
             this.label6.TabIndex = 15;
-            this.label6.Text = "V1.6.0";
+            this.label6.Text = "V1.8.0FA";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(423, 345);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(52, 13);
+            this.label7.Size = new System.Drawing.Size(0, 13);
             this.label7.TabIndex = 16;
-            this.label7.Text = "@c.jirkon";
             // 
             // inter_ip
             // 
@@ -313,11 +313,22 @@
             this.label9.TabIndex = 20;
             this.label9.Text = "Network Conx.";
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(416, 345);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(52, 13);
+            this.label10.TabIndex = 21;
+            this.label10.Text = "@c.jirkon";
+            this.label10.Click += new System.EventHandler(this.label10_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(484, 367);
+            this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.NetworkConnection);
             this.Controls.Add(this.label8);
@@ -342,7 +353,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "New Bridge Client";
+            this.Text = "BridgeClient";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -383,6 +394,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox NetworkConnection;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
     }
 }
 

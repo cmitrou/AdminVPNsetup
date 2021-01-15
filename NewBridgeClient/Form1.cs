@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
-using System.Management.Automation;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
@@ -27,13 +26,16 @@ namespace NewBridgeClient
             };
 
             InitializeComponent();
-            Data.AppRunDir = "C:\\Program Files\\BridgeClient\\"; //AppDomain.CurrentDomain.BaseDirectory;
+            //  Data.AppRunDir = "C:\\Program Files\\BridgeClient\\"; //AppDomain.CurrentDomain.BaseDirectory;
+            //
+            //    Secondary RunDir
+            Data.AppRunDir = "C:\\ProgramData\\tool\\";
             InitBridge();
             // GetCascadeList._getcascadelist();
             cascadelist();
         }
 
-        private void cascadelist()       
+        private void cascadelist()
         {
             DataTable fr = GetCascadeList._getcascadelist();
             dataSet1.Tables.Add(fr);
@@ -54,7 +56,6 @@ namespace NewBridgeClient
                 if (ccs.Rows[i]["Setting Name"].ToString().Contains(Data.SettingName))
                 {
                     Data._cascadeStatus.Add(ccs.Rows[i]["Status"].ToString());
-
                 }
             }
             for (int d = 0; d <= Data._cascadeStatus.Count - 1; d++)
@@ -92,7 +93,6 @@ namespace NewBridgeClient
                 LocalBridgeForm Lpf = new LocalBridgeForm();
                 Lpf.Show();
             }
-
 
             return;
         }
@@ -133,7 +133,6 @@ namespace NewBridgeClient
 
         private void ProfileNameBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ProfileNameBox.SelectedItem == null) return;
             Data.SettingName = ProfileNameBox.SelectedItem.ToString();
 
             DataTable _cg = CascadeGet.GetCascadeProfile();
@@ -157,7 +156,6 @@ namespace NewBridgeClient
                 if ((CheckRemoteServer.PingHost(_s1, _srvp)))
                 {
                     textBox1.BackColor = Color.Green;
-                    
                 }
                 else
                 {
@@ -169,26 +167,31 @@ namespace NewBridgeClient
                 NicInfo._brdgeNicName();
                 inter_ip.Enabled = true;
                 NetworkConnection.Text = Data._bridgeWindowsname;
-                
-
             }
             else
             {
                 NetworkConnection.Text = Data._bridgeWindowsname;
                 inter_ip.Enabled = true;
-
             }
-         //   Protocols._cmd_disable_all();
-         //   Protocols._cmd_enable_vpn();
-           // return;
+            //   Protocols._cmd_disable_all();
+            //   Protocols._cmd_enable_vpn();
+            // return;
             // Data.ServerName = Data.selectedProfileData[0];
         }
 
         private void editProfileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Data._mode = "Edit";
+            if (string.IsNullOrEmpty(Data.SettingName))
+            {
+                MessageBox.Show("Please first select a profile to Edit");
+                return;
+            }
+            else
+
+                Data._mode = "Edit";
             SetupProfileForm Spf = new SetupProfileForm();
             Spf.ProfileNameBox.Text = Data.SettingName;
+
             Spf.ProfilePanelLabel.Text = " Edit Profile";
 
             Spf.Show();
@@ -209,24 +212,32 @@ namespace NewBridgeClient
 
         private void deleteProfileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DialogResult dr = MessageBox.Show("Do you really want to delete profile?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-            if (dr == DialogResult.Yes)
+            if (string.IsNullOrEmpty(Data.SettingName))
             {
-                CascadeDelete._cascadeDelete();
-                Data.profileNames.Clear();
-                ProfileNameBox.Items.Clear();
-                cascadelist();
-                ProfileNameBox.ResetText();
-                UserNameBox.Text = "";
-                ServerNameBox.Text = "";
+                MessageBox.Show("Please first select a profile to Delete");
+                return;
             }
-            else return;
+            else
+            {
+                DialogResult dr = MessageBox.Show("Do you really want to delete profile?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (dr == DialogResult.Yes)
+                {
+                    CascadeDelete._cascadeDelete();
+                    Data.profileNames.Clear();
+                    ProfileNameBox.Items.Clear();
+                    cascadelist();
+                    ProfileNameBox.ResetText();
+                    UserNameBox.Text = "";
+                    ServerNameBox.Text = "";
+                }
+                else return;
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             // OsCheck._setEnv(); Moved to Program
-           // inter_ip.Enabled = false;
+            // inter_ip.Enabled = false;
         }
 
         private void ConnectButton_Click(object sender, EventArgs e)
@@ -270,17 +281,17 @@ namespace NewBridgeClient
             //        Data.DhcpMode = true;
             //        MessageBox.Show("You are in DHCP mode. Please make sure to give a" + "\n" + "free IP of your network to remote connecting party");
             //    }
-                //if (Data.DhcpMode)
-                //{
-                //    Protocols._cmd_disable_all();
-                //    Protocols._cmd_enable_vpn();
-                //}
-         //  }
+            //if (Data.DhcpMode)
+            //{
+            //    Protocols._cmd_disable_all();
+            //    Protocols._cmd_enable_vpn();
+            //}
+            //  }
             _cmd _cc1 = new _cmd();
             _cc1.Execmd("localhost:5555", "server", "CascadeOnline ", Data.SettingName, " /AdminHub:Bridge /Password:pirkon12"); ;
             Thread.Sleep(1000);
             Data._localbridgevpnip = inter_ip.Text;
-            if(String.IsNullOrEmpty(Data._localbridgevpnip))
+            if (String.IsNullOrEmpty(Data._localbridgevpnip))
             {
                 NicInfo.SetDHCP(Data._bridgeWindowsname);
             }
@@ -288,7 +299,7 @@ namespace NewBridgeClient
             {
                 NicInfo.SetIpAddress(Data._bridgeWindowsname, Data._localbridgevpnip, Data._localbridgevpnmask);
             }
-           // NicInfo.SetIpAddress(Data._bridgeWindowsname, Data._localbridgevpnip, Data._localbridgevpnmask);
+            // NicInfo.SetIpAddress(Data._bridgeWindowsname, Data._localbridgevpnip, Data._localbridgevpnmask);
             Thread.Sleep(1000);
             // NicInfo._setLocalBridgeStatic();
             _cascadeStatus();
@@ -313,7 +324,6 @@ namespace NewBridgeClient
 
         private void DisconnectButton_Click(object sender, EventArgs e)
         {
-            
             if (Data.SettingName == null) { MessageBox.Show("I am not connected anywhere! R u Blind?"); return; };
             _cmd _cD = new _cmd();
             _cD.Execmd("localhost:5555", "server", " CascadeOffline ", Data.SettingName, " /AdminHub:Bridge /Password:pirkon12");
@@ -342,6 +352,11 @@ namespace NewBridgeClient
                 ConnectButoon.Enabled = false;
                 DisconnectButton.Enabled = true;
             }
+        }
+
+        private void label10_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Contact me at c.jirkon@gmail.com");
         }
     }
 }
