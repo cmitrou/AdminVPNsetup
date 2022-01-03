@@ -50,6 +50,7 @@
             this.UserLoginPassword = new System.Windows.Forms.Label();
             this.UserLoginNameBox = new System.Windows.Forms.TextBox();
             this.UserLoginNameLabel = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.SetupPanel1.SuspendLayout();
             this.BridgeInterfaceGpouBox.SuspendLayout();
             this.ServerGroupBox.SuspendLayout();
@@ -168,7 +169,8 @@
             this.ServerGroupBox.TabIndex = 6;
             this.ServerGroupBox.TabStop = false;
             this.ServerGroupBox.Tag = "notchanged";
-            this.ServerGroupBox.Text = "2. Server Data";
+            this.ServerGroupBox.Text = "2. Server Data  (Hidden)";
+            this.ServerGroupBox.Visible = false;
             // 
             // ServerNameBox
             // 
@@ -176,6 +178,7 @@
             this.ServerNameBox.Name = "ServerNameBox";
             this.ServerNameBox.Size = new System.Drawing.Size(179, 20);
             this.ServerNameBox.TabIndex = 0;
+            this.ServerNameBox.Visible = false;
             this.ServerNameBox.TextChanged += new System.EventHandler(this.ServerNameBox_TextChanged);
             // 
             // ServerHubLabel
@@ -203,6 +206,7 @@
             this.ServerHubBox.Size = new System.Drawing.Size(61, 20);
             this.ServerHubBox.TabIndex = 2;
             this.ServerHubBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.ServerHubBox.Visible = false;
             this.ServerHubBox.TextChanged += new System.EventHandler(this.ServerHubBox_TextChanged);
             // 
             // ServerPortLabel
@@ -221,10 +225,12 @@
             this.ServerPortBox.Size = new System.Drawing.Size(57, 20);
             this.ServerPortBox.TabIndex = 1;
             this.ServerPortBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.ServerPortBox.Visible = false;
             this.ServerPortBox.TextChanged += new System.EventHandler(this.ServerPortBox_TextChanged);
             // 
             // UserDataBox
             // 
+            this.UserDataBox.Controls.Add(this.label1);
             this.UserDataBox.Controls.Add(this.UserPassBox);
             this.UserDataBox.Controls.Add(this.UserLoginPassword);
             this.UserDataBox.Controls.Add(this.UserLoginNameBox);
@@ -236,7 +242,7 @@
             this.UserDataBox.TabIndex = 7;
             this.UserDataBox.TabStop = false;
             this.UserDataBox.Tag = "false";
-            this.UserDataBox.Text = "3. User Login";
+            this.UserDataBox.Text = "   User Login";
             // 
             // UserPassBox
             // 
@@ -271,6 +277,15 @@
             this.UserLoginNameLabel.Size = new System.Drawing.Size(60, 13);
             this.UserLoginNameLabel.TabIndex = 0;
             this.UserLoginNameLabel.Text = "User Name";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(134, 16);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(53, 13);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Password";
             // 
             // SetupProfileForm
             // 
@@ -319,5 +334,6 @@
         private System.Windows.Forms.Label ProFileNameLabel;
         private System.Windows.Forms.RadioButton LocalBridgeChangeLabel;
         private System.Windows.Forms.TextBox UserPassBox;
+        private System.Windows.Forms.Label label1;
     }
 }

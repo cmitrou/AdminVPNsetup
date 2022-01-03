@@ -37,5 +37,9 @@ namespace NewBridgeClient
         public static bool netnamefound { get; set; }
         public static bool DhcpMode { get; set; }
         public static string user { get; set; }
+      
+        public static string MainClientServer = "139.162.142.110/tcp";
+        public static string MainClientHub = "RemoteVag";
+        public static string MainClientHubPort = "8790";
     }
 }

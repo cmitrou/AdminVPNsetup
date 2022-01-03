@@ -83,6 +83,7 @@
             this.ServerNameBox.Size = new System.Drawing.Size(198, 20);
             this.ServerNameBox.TabIndex = 2;
             this.ServerNameBox.TabStop = false;
+            this.ServerNameBox.Visible = false;
             // 
             // menuStrip1
             // 
@@ -109,28 +110,28 @@
             // setupProfileToolStripMenuItem
             // 
             this.setupProfileToolStripMenuItem.Name = "setupProfileToolStripMenuItem";
-            this.setupProfileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.setupProfileToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.setupProfileToolStripMenuItem.Text = "Add Profile";
             this.setupProfileToolStripMenuItem.Click += new System.EventHandler(this.setupProgileToolStripMenuItem_Click);
             // 
             // editProfileToolStripMenuItem
             // 
             this.editProfileToolStripMenuItem.Name = "editProfileToolStripMenuItem";
-            this.editProfileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.editProfileToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.editProfileToolStripMenuItem.Text = "Edit Profile";
             this.editProfileToolStripMenuItem.Click += new System.EventHandler(this.editProfileToolStripMenuItem_Click);
             // 
             // deleteProfileToolStripMenuItem
             // 
             this.deleteProfileToolStripMenuItem.Name = "deleteProfileToolStripMenuItem";
-            this.deleteProfileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.deleteProfileToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.deleteProfileToolStripMenuItem.Text = "Delete Profile";
             this.deleteProfileToolStripMenuItem.Click += new System.EventHandler(this.deleteProfileToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             // 
             // aboutToolStripMenuItem
@@ -147,7 +148,7 @@
             this.toolStripTextBox1.Name = "toolStripTextBox1";
             this.toolStripTextBox1.ReadOnly = true;
             this.toolStripTextBox1.Size = new System.Drawing.Size(160, 23);
-            this.toolStripTextBox1.Text = "Bridge Client for VPN Server.";
+            this.toolStripTextBox1.Text = "   Client for VPN Server.";
             // 
             // sevpnbridge
             // 
@@ -192,9 +193,10 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(145, 248);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(118, 13);
+            this.label3.Size = new System.Drawing.Size(161, 13);
             this.label3.TabIndex = 7;
-            this.label3.Text = "VPN Server to Connect";
+            this.label3.Text = "VPN Server to Connect (Hidden)";
+            this.label3.Visible = false;
             // 
             // ConnectButoon
             // 
@@ -253,22 +255,25 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::NewBridgeClient.Properties.Resources.automotive_electronics;
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.InitialImage = null;
             this.pictureBox1.Location = new System.Drawing.Point(12, 27);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(463, 151);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 14;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(9, 345);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(51, 13);
+            this.label6.Size = new System.Drawing.Size(53, 13);
             this.label6.TabIndex = 15;
-            this.label6.Text = "V1.8.0FA";
+            this.label6.Text = "V1.9.1VG";
+            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // label7
             // 
@@ -353,7 +358,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "BridgeClient";
+            this.Text = "VPN Client";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

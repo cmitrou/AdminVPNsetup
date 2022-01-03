@@ -95,8 +95,8 @@ namespace NewBridgeClient
             if (ProfilePanelLabel.Text == "Profile Setup")
             {
                 // put new setting name --> add new profile
-                //_getDatafomTextBox();
-                GetEnteredDataAsNewProfile();
+                _getDatafomTextBox1();
+                GetEnteredDataAsNewProfile();  ////  change
                 Data.profileNames.Clear();
                 cascadelist();
                 Form1 frm1 = new Form1();
@@ -108,7 +108,7 @@ namespace NewBridgeClient
             if (Data._mode == "Edit")
             {
                 CascadeDelete._cascadeDelete();
-                _getDatafomTextBox();
+                _getDatafomTextBox1();
                 GetEnteredDataAsNewProfile();
                 // get setting name --> delete --> add with the same name
 
@@ -131,13 +131,34 @@ namespace NewBridgeClient
 
         private void _getDatafomTextBox()
         {
-            Data.ServerName = ServerNameBox.Text;
+           Data.ServerName = ServerNameBox.Text;
             //  Data.ServerPort = Convert.ToInt32(ServerPortBox.Text);
             Data.ServerHub = ServerHubBox.Text;
             Data._userName = UserLoginPassword.Text;
             Data._userPasw = UserLoginPassword.Text;
+            Form1._srvN = Data.ServerName; 
+        }
+
+        private void _getDatafomTextBox1()
+        {
+            // ServerNameBox.Text = "139.162.142.110/tcp";
+            ServerNameBox.Text = Data.MainClientServer;
+            Data.ServerName = ServerNameBox.Text;
+            //  Data.ServerPort = Convert.ToInt32(ServerPortBox.Text);
+
+            //ServerHubBox.Text = "ManRem";
+            ServerHubBox.Text = Data.MainClientHub;
+            Data.ServerHub = ServerHubBox.Text;
+
+            //ServerPortBox.Text = "8789";
+            ServerPortBox.Text = Data.MainClientHubPort;
+            Data.NewProfileServerPort = ServerPortBox.Text;
+
+            Data._userName = UserLoginPassword.Text;
+            Data._userPasw = UserLoginPassword.Text;
             Form1._srvN = Data.ServerName;
         }
+
 
         private void SetupProfileForm_Load(object sender, EventArgs e)
         {

@@ -290,18 +290,21 @@ namespace NewBridgeClient
             _cmd _cc1 = new _cmd();
             _cc1.Execmd("localhost:5555", "server", "CascadeOnline ", Data.SettingName, " /AdminHub:Bridge /Password:pirkon12"); ;
             Thread.Sleep(1000);
-            Data._localbridgevpnip = inter_ip.Text;
-            if (String.IsNullOrEmpty(Data._localbridgevpnip))
-            {
-                NicInfo.SetDHCP(Data._bridgeWindowsname);
-            }
-            else
-            {
-                NicInfo.SetIpAddress(Data._bridgeWindowsname, Data._localbridgevpnip, Data._localbridgevpnmask);
-            }
+           //
+//           Data._localbridgevpnip = inter_ip.Text;
+//            if (String.IsNullOrEmpty(Data._localbridgevpnip))
+//            {
+//                NicInfo.SetDHCP(Data._bridgeWindowsname);
+//            }
+//            else
+//            {
+//                NicInfo.SetIpAddress(Data._bridgeWindowsname, Data._localbridgevpnip, Data._localbridgevpnmask);
+//            }
             // NicInfo.SetIpAddress(Data._bridgeWindowsname, Data._localbridgevpnip, Data._localbridgevpnmask);
-            Thread.Sleep(1000);
+//            Thread.Sleep(1000);
             // NicInfo._setLocalBridgeStatic();
+            //
+
             _cascadeStatus();
             if (Data._cscdC)
             {
@@ -339,7 +342,8 @@ namespace NewBridgeClient
                 menuToolStripMenuItem.Enabled = true;
                 //  Protocols._cmd_enable_bindings();
                 //   Protocols._cmd_enable_all();
-                NicInfo.SetDHCP(Data._bridgeWindowsname);
+ // SET DHCP remove             
+                //  NicInfo.SetDHCP(Data._bridgeWindowsname);
                 //  NicInfo._startwithDhcpON();
 
                 Thread.Sleep(3000);
@@ -357,6 +361,16 @@ namespace NewBridgeClient
         private void label10_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Contact me at c.jirkon@gmail.com");
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

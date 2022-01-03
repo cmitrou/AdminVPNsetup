@@ -71,12 +71,12 @@ namespace NewBridgeClient.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static byte[] VPNBridgeApi {
+        internal static System.Drawing.Bitmap automotive_electronics1 {
             get {
-                object obj = ResourceManager.GetObject("VPNBridgeApi", resourceCulture);
-                return ((byte[])(obj));
+                object obj = ResourceManager.GetObject("automotive-electronics1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }
